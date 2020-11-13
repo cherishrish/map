@@ -7,7 +7,7 @@
             <i class="right-icon"/>数据图层
           </a>
       </div>
-      <!-- 地图资讯-->
+      <!-- 地图资讯1111-->
       <div class="operation-item">
         <a href="javascript:" @click="onOperationMapInfoShow">
           <span class="change-color">
