@@ -7,7 +7,7 @@
             <i class="right-icon"/>数据图层
           </a>
       </div>
-      <!-- 地图资讯1111-->
+      <!-- 地图资讯-->
       <div class="operation-item">
         <a href="javascript:" @click="onOperationMapInfoShow">
           <span class="change-color">
@@ -18,10 +18,13 @@
     </div>
     <el-dialog
       align="left"
-      title="提示"
       :visible.sync="mapInfo.confirm"
       width="30%"
       :destroy-on-close="true">
+<!--      设置对话框标题样式-->
+      <template slot="title">
+        <div style="font-size: 18px;color: #6850d8;font-weight: bold">提示</div>
+      </template>
       <span>
         确定打开地图资讯吗？这将重置地图（清除标注、标绘、业务绘图等）再加载资讯信息？
       </span>
@@ -150,7 +153,7 @@ export default {
               name: this.point[i].port,
               position: new Cesium.Cartesian3.fromDegrees(this.point[i].lng, this.point[i].lon),
               billboard: {
-                image: require("../assets/marker.png"),
+                image: require("../assets/marker3.png"),
                 scale: 1,
                 horizontalOrigin: Cesium.HorizontalOrigin.CENTER,
                 verticalOrigin: Cesium.VerticalOrigin.BOTTOM,
