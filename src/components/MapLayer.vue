@@ -54,6 +54,15 @@
 </script>
 
 <style scoped lang="less">
+  /*修改a标签的颜色*/
+  a{
+    color: #515a6e;
+  }
+
+  a:hover{
+    color: #81d8d0;
+  }
+
   .mapInfo_view {
     position: absolute;
     bottom: 10px;
@@ -75,7 +84,8 @@
     width: 100%;
     padding: 4px;
     margin-bottom: 10px;
-    border: 2px solid #f7f7f7;
+    /*去掉外边框*/
+    /*border: 2px solid #f7f7f7;*/
     border-radius: 4px;
     background-color: rgba(255, 255, 255, 0.9);
     box-shadow: 1px 2px 4px #11035440;

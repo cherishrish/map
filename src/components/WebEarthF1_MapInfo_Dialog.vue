@@ -11,7 +11,7 @@
                width="60%" :show-close="false" :destroy-on-close="true">
 <!--      设置对话框title样式-->
       <template slot="title">
-        <div style="color: #6850d8;font-size: 20px;font-weight: bold">{{model.subject}}</div>
+        <div style="color: #81d8d0;font-size: 30px;font-weight: bold;text-align: center">{{model.subject}}</div>
       </template>
       <div class="item info">
         地点：{{model.port}} ({{model.lng}}, {{model.lon}})
@@ -157,10 +157,10 @@
         }
 
         &:hover {
-          color: #6850d8;
+          color: #81d8d0;
 
           i {
-            color: #6850d8;
+            color: #81d8d0;
           }
         }
       }

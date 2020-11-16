@@ -4,7 +4,9 @@
     <div class="operation">
       <div class="operation-item">
           <a href="javascript:" @click="onOperationLayerShow">
+            <span class="change-color">
             <i class="right-icon"/>数据图层
+            </span>
           </a>
       </div>
       <!-- 地图资讯-->
@@ -23,7 +25,7 @@
       :destroy-on-close="true">
 <!--      设置对话框标题样式-->
       <template slot="title">
-        <div style="font-size: 18px;color: #6850d8;font-weight: bold">提示</div>
+        <div style="font-size: 18px;color: #81d8d0;font-weight: bold;text-align: center">提示</div>
       </template>
       <span>
         确定打开地图资讯吗？这将重置地图（清除标注、标绘、业务绘图等）再加载资讯信息？

@@ -129,7 +129,7 @@
   }
 
   a:hover{
-    color: #6850d8;
+    color: #81d8d0;
   }
 
   .mapInfo_view {
