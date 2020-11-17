@@ -223,7 +223,7 @@
 }
 .hello .cesium-mouse-position .pointLong,
 .hello .cesium-mouse-position .poitLat {
-  color: #3385ff;
+  color: #81d8d0;
 }
 .hello .operation {
   position: absolute;
@@ -371,7 +371,7 @@
   background-color: #dbdee2;
 }
 .hello .tools a:hover {
-  color: #2d8cf0;
+  color: #81d8d0;
 }
 .hello .editPersonal {
   position: absolute;
@@ -389,7 +389,6 @@
   line-height: 30px;
   text-align: left;
   color: #81d8d0;
-  font-weight: 600;
   font-size: 18px;
   margin-bottom: 10px;
 }
@@ -495,7 +494,28 @@
 .hello .toolsItem > div ul li:not(:last-child) {
   border-bottom: 1px solid #eee;
 }
-
-
-
+/*修改提示框确定按钮的背景色为主色*/
+.el-button--primary {
+  color: #fff;
+  background-color: #81d8d0;
+  border-color: #81d8d0;
+}
+.el-button--primary:hover {
+  background-color: #AFD8CC;
+  border-color: #AFD8CC;
+}
+/*修改取消按钮的颜色*/
+.el-button:hover {
+  background-color: #AFD8CC;
+  border-color: #AFD8CC;
+  color: #fff;
+}
+/*修改el-button之间的margin*/
+.el-button + .el-button {
+  margin-left: 200px;
+}
+/*按钮设置为居中格式*/
+.el-dialog__footer {
+  text-align: center;
+}
 /*# sourceMappingURL=WebEarthF1.css.map */
