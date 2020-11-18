@@ -143,8 +143,9 @@
   .mapInfo_view_point {
     position: absolute;
     top: 75px;
-    left: 20px;
-    width: 375px;
+    /*将地点主题列表置于右侧选择按钮下*/
+    right: 96px;
+    width: 460px;
     display: block;
   }
 
