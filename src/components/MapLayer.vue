@@ -4,13 +4,18 @@
         <div class="mapInfo_view_table">
           <table class="table" width="100%">
             <tr>
-              <th>热力图展示</th>
-              <th width="120">操作</th>
+              <th>港口</th>
+              <th width="120">热力图</th>
+              <th width="150">进出港口货物统计图</th>
             </tr>
             <tr v-for="(item, index) in statList" :key="index">
               <td>{{item.port}}</td>
               <td>
                 <a href="javascript:;" @click="onShowClick(item)">前往</a>
+              </td>
+              <td>
+                <a href="javascript:;" @click="onChartClick(item,1)">折线图</a>
+                <a href="javascript:;" @click="onChartClick(item,2)">柱状图</a>
               </td>
             </tr>
           </table>
@@ -49,6 +54,10 @@
       onShowClick(item) {
         this.$emit('heat-click', item);
       },
+      onChartClick(item,index){
+        console.log(item)
+        this.$emit('bar-click', item,index);
+      }
     }
   }
 </script>
