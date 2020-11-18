@@ -32,7 +32,7 @@
 }
 .hello .search .box /deep/ .el-input-group__append {
   height: 45px;
-  background-color: #6850d8;
+  background-color: #81d8d0;
   border: none !important;
 }
 .hello .search .box /deep/ .el-input-group__append /deep/ .el-icon-search {
@@ -223,7 +223,7 @@
 }
 .hello .cesium-mouse-position .pointLong,
 .hello .cesium-mouse-position .poitLat {
-  color: #3385ff;
+  color: #81d8d0;
 }
 .hello .operation {
   position: absolute;
@@ -272,7 +272,7 @@
 .hello .operation .operation-item a :active,
 .hello .operation .operation-item a :hover,
 .hello .operation .operation-item a :focus {
-  color: #6850d8 !important;
+  color: #81d8d0 !important;
 }
 .hello .operation > div {
   display: inline-block;
@@ -296,7 +296,7 @@
 .hello .operation .change-color:active,
 .hello .operation .change-color:hover,
 .hello .operation .change-color:focus {
-  color: #6850d8 !important;
+  color: #81d8d0 !important;
 }
 .hello .operation /deep/ .ivu-dropdown-item {
   text-align: left;
@@ -332,13 +332,13 @@
   padding: 10px;
 }
 .hello .context-menu > ul > li .secondMenu ul li:hover {
-  color: #3385ff;
+  color: #81d8d0;
 }
 .hello .context-menu > ul li:hover span {
-  color: #3385ff;
+  color: #81d8d0;
 }
 .hello .context-menu > ul li:hover i {
-  color: #3385ff;
+  color: #81d8d0;
 }
 .hello .context-menu > ul li.line {
   background-color: #dbdbdb;
@@ -371,7 +371,7 @@
   background-color: #dbdee2;
 }
 .hello .tools a:hover {
-  color: #2d8cf0;
+  color: #81d8d0;
 }
 .hello .editPersonal {
   position: absolute;
@@ -382,14 +382,13 @@
   background: #fff;
   width: 400px;
   padding: 10px 20px 20px 20px;
-  border-top: 5px solid #6850d8;
+  border-top: 5px solid #81d8d0;
 }
 .hello .editPersonal .editTitle {
   height: 40px;
   line-height: 30px;
   text-align: left;
-  color: #6850d8;
-  font-weight: 600;
+  color: #81d8d0;
   font-size: 18px;
   margin-bottom: 10px;
 }
@@ -490,9 +489,33 @@
 /*}*/
 .hello .hover-show {
   font-size: 12px;
-  color: #6850d8;
+  color: #81d8d0;
 }
 .hello .toolsItem > div ul li:not(:last-child) {
   border-bottom: 1px solid #eee;
+}
+/*修改提示框确定按钮的背景色为主色*/
+.el-button--primary {
+  color: #fff;
+  background-color: #81d8d0;
+  border-color: #81d8d0;
+}
+.el-button--primary:hover {
+  background-color: #AFD8CC;
+  border-color: #AFD8CC;
+}
+/*修改取消按钮的颜色*/
+.el-button:hover {
+  background-color: #AFD8CC;
+  border-color: #AFD8CC;
+  color: #fff;
+}
+/*修改el-button之间的margin*/
+.el-button + .el-button {
+  margin-left: 200px;
+}
+/*按钮设置为居中格式*/
+.el-dialog__footer {
+  text-align: center;
 }
 /*# sourceMappingURL=WebEarthF1.css.map */

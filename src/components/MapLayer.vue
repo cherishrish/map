@@ -4,13 +4,18 @@
         <div class="mapInfo_view_table">
           <table class="table" width="100%">
             <tr>
-              <th>热力图展示</th>
-              <th width="120">操作</th>
+              <th>港口</th>
+              <th width="120">热力图</th>
+              <th width="150">进出港口货物统计图</th>
             </tr>
             <tr v-for="(item, index) in statList" :key="index">
               <td>{{item.port}}</td>
               <td>
                 <a href="javascript:;" @click="onShowClick(item)">前往</a>
+              </td>
+              <td>
+                <a href="javascript:;" @click="onChartClick(item,1)">折线图</a>
+                <a href="javascript:;" @click="onChartClick(item,2)">柱状图</a>
               </td>
             </tr>
           </table>
@@ -49,11 +54,24 @@
       onShowClick(item) {
         this.$emit('heat-click', item);
       },
+      onChartClick(item,index){
+        console.log(item)
+        this.$emit('bar-click', item,index);
+      }
     }
   }
 </script>
 
 <style scoped lang="less">
+  /*修改a标签的颜色*/
+  a{
+    color: #515a6e;
+  }
+
+  a:hover{
+    color: #81d8d0;
+  }
+
   .mapInfo_view {
     position: absolute;
     bottom: 10px;
@@ -75,7 +93,8 @@
     width: 100%;
     padding: 4px;
     margin-bottom: 10px;
-    border: 2px solid #f7f7f7;
+    /*去掉外边框*/
+    /*border: 2px solid #f7f7f7;*/
     border-radius: 4px;
     background-color: rgba(255, 255, 255, 0.9);
     box-shadow: 1px 2px 4px #11035440;

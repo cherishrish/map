@@ -4,10 +4,12 @@
     <div class="operation">
       <div class="operation-item">
           <a href="javascript:" @click="onOperationLayerShow">
-            <i class="right-icon"/>数据图层
+            <span class="change-color">
+            <i class="right-icon ivu-icon el-icon-s-data"/>数据图层
+            </span>
           </a>
       </div>
-      <!-- 地图资讯1111-->
+      <!-- 地图资讯-->
       <div class="operation-item">
         <a href="javascript:" @click="onOperationMapInfoShow">
           <span class="change-color">
@@ -18,10 +20,13 @@
     </div>
     <el-dialog
       align="left"
-      title="提示"
       :visible.sync="mapInfo.confirm"
       width="30%"
       :destroy-on-close="true">
+<!--      设置对话框标题样式-->
+      <template slot="title">
+        <div style="font-size: 18px;color: #81d8d0;font-weight: bold;text-align: center">提示</div>
+      </template>
       <span>
         确定打开地图资讯吗？这将重置地图（清除标注、标绘、业务绘图等）再加载资讯信息？
       </span>
@@ -36,7 +41,8 @@
                                :id="mapInfo.id" :place="mapInfo.place" :lng="mapInfo.lng" :lat="mapInfo.lat"
                                @close="onOperationMapInfoSubjectClose"/>
 
-    <MapLayer v-if="layerShow" :point="point" @heat-click="onHeatClick"/>
+    <MapLayer v-if="layerShow" :point="point" @heat-click="onHeatClick" @bar-click="onBarClick"/>
+    <bar v-if="barShow" :objectData = "objectData"></bar>
   </div>
 
 
@@ -48,6 +54,7 @@ import '../../node_modules/cesium/Build/Cesium/Widgets/widgets.css'
 import MapInfo from "./MapInfo"
 import MapLayer from './MapLayer'
 import WebEarthF1_MapInfo_Dialog from "./WebEarthF1_MapInfo_Dialog";
+import bar from "./bar"
 import * as Cesium from '../../static/Cesium/Cesium'
 
 export default {
@@ -55,7 +62,8 @@ export default {
   components:{
     MapInfo,
     WebEarthF1_MapInfo_Dialog,
-    MapLayer
+    MapLayer,
+    bar
   },
 
   data () {
@@ -72,11 +80,18 @@ export default {
         lng: undefined,
         lat: undefined,
       },
+      objectData:{
+        port:'',
+        barType:1,
+        inPort:[],
+        outPort:[]
+      },
       layerShow:false,
       port:'',
       pointShow: false,
       point:[],
-      entities:[]
+      entities:[],
+      barShow:false,
     }
   },
 
@@ -150,7 +165,7 @@ export default {
               name: this.point[i].port,
               position: new Cesium.Cartesian3.fromDegrees(this.point[i].lng, this.point[i].lon),
               billboard: {
-                image: require("../assets/marker.png"),
+                image: require("../assets/marker3.png"),
                 scale: 1,
                 horizontalOrigin: Cesium.HorizontalOrigin.CENTER,
                 verticalOrigin: Cesium.VerticalOrigin.BOTTOM,
@@ -192,7 +207,12 @@ export default {
       this.port = item.port;
     },
     onOperationLayerShow(){
-      this.layerShow = true;
+      if(this.layerShow){
+        this.layerShow = false;
+        this.barShow = false;
+      }else{
+        this.layerShow = true;
+      }
     },
     onHeatClick(item){
       // 矩形坐标
@@ -229,6 +249,28 @@ export default {
           roll: 0.0
         }
       });
+    },
+
+    onBarClick(item,index){
+      this.$axios.get('http://localhost:8080/static/chart.json').then(res=>{
+        this.barShow = true;
+        var portList = res.data;
+        console.log(portList[0])
+        for(var i=0;i<portList.length;i++){
+          if(portList[i].port==item.port){
+            var bar =  portList[i];
+            this.objectData.port = item.port;
+            this.objectData.barType = index;
+            this.objectData.inPort = bar.in;
+            this.objectData.outPort = bar.out;
+            console.log(this.objectData)
+            break;
+          }
+        }
+
+      }).catch(error=>{
+        console.log('error')
+      })
     },
 
     getData(length,east,west,north,south) {

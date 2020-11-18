@@ -6,8 +6,13 @@
         返回
       </button>
     </div>
-    <el-dialog align="left" :title="model.subject" :visible.sync="showDialog" :close-on-click-modal="false"
+
+    <el-dialog align="left" :visible.sync="showDialog" :close-on-click-modal="false"
                width="60%" :show-close="false" :destroy-on-close="true">
+<!--      设置对话框title样式-->
+      <template slot="title">
+        <div style="color: #81d8d0;font-size: 30px;font-weight: bold;text-align: center">{{model.subject}}</div>
+      </template>
       <div class="item info">
         地点：{{model.port}} ({{model.lng}}, {{model.lon}})
       </div>
@@ -138,7 +143,11 @@
         cursor: pointer;
         padding: 10px;
 
+        /*返回按钮圆角边框化*/
+        border-radius: 23px;
+
         font-size: 24px;
+
         color: #333;
 
         i {
@@ -148,10 +157,10 @@
         }
 
         &:hover {
-          color: #6850d8;
+          color: #81d8d0;
 
           i {
-            color: #6850d8;
+            color: #81d8d0;
           }
         }
       }
