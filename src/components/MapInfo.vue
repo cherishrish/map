@@ -21,9 +21,9 @@
         <div class="mapInfo_view_table">
           <table class="table" width="100%">
             <tr>
-              <th>最新主题</th>
-              <th width="100">地点</th>
-              <th width="100">时间</th>
+              <th width="60%">最新主题</th>
+              <th width="20%">地点</th>
+              <th width="20%">时间</th>
             </tr>
             <tr v-for="(item, index) in point" :key="index">
               <td align="left">
@@ -39,8 +39,8 @@
         <div class="mapInfo_view_table">
           <table class="table" width="100%">
             <tr>
-              <th>热门地点</th>
-              <th width="120">主题数</th>
+              <th width="60%">热门地点</th>
+              <th width="40%">主题数</th>
             </tr>
             <tr v-for="(item, index) in statList" :key="index">
               <td>

@@ -69,11 +69,12 @@
 <style scoped>
   .bar {
     position: absolute;
-    top: 70px;
-    left: 396px;
+    top: 75px;
+    left: 96px;
     width: 800px;
-    height: 400px;
+    height: 380px;
     display: block;
-    background: #edffff;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
   }
 </style>

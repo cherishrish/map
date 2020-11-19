@@ -4,9 +4,9 @@
         <div class="mapInfo_view_table">
           <table class="table" width="100%">
             <tr>
-              <th>港口</th>
-              <th width="120">热力图</th>
-              <th width="150">进出港口货物统计图</th>
+              <th width="30%">港口</th>
+              <th width="20%">热力图</th>
+              <th width="50%">进出港口货物统计图</th>
             </tr>
             <tr v-for="(item, index) in statList" :key="index">
               <td>{{item.port}}</td>
@@ -76,7 +76,7 @@
     position: absolute;
     bottom: 10px;
     left: 96px;
-    width: 460px;
+    width: 800px;
     display: block;
   }
 
@@ -84,7 +84,8 @@
     position: absolute;
     top: 75px;
     left: 20px;
-    width: 375px;
+    /*修改宽度*/
+    width: 300px;
     display: block;
   }
 
