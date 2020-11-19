@@ -63,7 +63,7 @@ export default {
     MapInfo,
     WebEarthF1_MapInfo_Dialog,
     MapLayer,
-    bar
+    bar,
   },
 
   data () {
