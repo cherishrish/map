@@ -124,13 +124,20 @@
 
 <style scoped lang="less">
   /*修改新闻列表中的链接颜色*/
-  a{
+  a:link{
     color: #515a6e;
   }
-
+  a:visited{
+    color: #81d8d0;
+  }
   a:hover{
     color: #81d8d0;
   }
+  a:active{
+    color: #81d8d0;
+  }
+
+
 
   .mapInfo_view {
     position: absolute;
