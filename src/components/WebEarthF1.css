@@ -228,7 +228,8 @@
 .hello .operation {
   position: absolute;
   top: 20px;
-  right: 20px;
+  /*修改距离右边栏的距离*/
+  right: 90px;
   height: 45px;
   border-radius: 5px;
   line-height: 45px;
@@ -516,6 +517,26 @@
 }
 /*按钮设置为居中格式*/
 .el-dialog__footer {
+  text-align: center;
+}
+/*changed the color of news-link*/
+.news-content {
+  font-family: 'Microsoft YaHei UI';
+  color: #686266;
+  font-size: 14px;
+  line-height: 20px;
+  word-break: break-all;
+}
+.news-content a {
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+}
+.news-content a:hover {
+  color: #81dbd0;
+}
+/*新闻图片样式*/
+.news-image {
   text-align: center;
 }
 /*# sourceMappingURL=WebEarthF1.css.map */

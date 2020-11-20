@@ -28,7 +28,6 @@
       drawLine ({port="",barType=1,inPort=[],outPort=[]}={}) {
         // 基于准备好的dom，初始化echarts实例
         let myChart = this.$echarts.init(document.getElementById('bar'))
-        console.log(11)
         // 绘制图表
         myChart.setOption({
           title: {
@@ -52,12 +51,24 @@
           },
           series: [{
             name: '进口',
-            type: barType==1?"line":"bar",
-            data: inPort
-          },{
+            type: barType == 1 ? "line" : "bar",
+            data: inPort,
+            itemStyle: {
+              normal: {
+                color: 'rgb(135,206,250)',
+              },
+            },
+          },
+            {
             name: '出口',
             type: barType==1?"line":"bar",
-            data: outPort
+            //修改bar的颜色
+            itemStyle:{
+              normal:{
+                color: 'rgb(0,191,255)',
+              },
+            },
+            data: outPort,
           }]
         },true);
 
@@ -69,11 +80,12 @@
 <style scoped>
   .bar {
     position: absolute;
-    top: 70px;
-    left: 396px;
+    top: 75px;
+    left: 96px;
     width: 800px;
-    height: 400px;
+    height: 380px;
     display: block;
-    background: #edffff;
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 4px;
   }
 </style>

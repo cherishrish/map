@@ -5,7 +5,7 @@
       <div class="operation-item">
           <a href="javascript:" @click="onOperationLayerShow">
             <span class="change-color">
-            <i class="right-icon"/>数据图层
+            <i class="right-icon ivu-icon el-icon-s-data"/>数据图层
             </span>
           </a>
       </div>
@@ -63,7 +63,7 @@ export default {
     MapInfo,
     WebEarthF1_MapInfo_Dialog,
     MapLayer,
-    bar,
+    bar
   },
 
   data () {
