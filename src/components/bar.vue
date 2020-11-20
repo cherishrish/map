@@ -53,11 +53,23 @@
           series: [{
             name: '进口',
             type: barType==1?"line":"bar",
-            data: inPort
+            //修改bar的颜色
+            // itemStyle:{
+            //   normal:{
+            //     color: 'rgb(164,205,238)',
+            //   },
+            // },
+            data: inPort,
           },{
             name: '出口',
             type: barType==1?"line":"bar",
-            data: outPort
+            //修改bar的颜色
+            // itemStyle:{
+            //   normal:{
+            //     color: 'rgb(195,229,235)',
+            //   },
+            // },
+            data: outPort,
           }]
         },true);
 
