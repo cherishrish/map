@@ -52,7 +52,8 @@
         showDialog: true,
         hasUp: true,
         hasDown: true,
-
+        newsList:[],
+        index:0,
         model: {
           id: '',
           lng: 0,
@@ -61,7 +62,8 @@
           subject: '',
           subjectTime: '',
           content: '<p></p>',
-        }
+        },
+        news:[]
       };
     },
 
@@ -96,23 +98,47 @@
       load(id) {
         let me = this;
         this.$axios.get("http://localhost:8080/static/db.json").then(res => {
-          console.log(res.data[0])
+          this.newsList = res.data;
           for(var i=0;i<res.data.length;i++){
             if(id==res.data[i].id){
               me.model = res.data[i];
+              console.log(me.model)
               break;
             }
           }
+          for(var i=0;i<this.newsList.length;i++){
+            if(me.newsList[i].port==me.model.port){
+              this.news.push(me.newsList[i]);
+            }
+          }
+          console.log(me.news);
+          for(var i=0;i<me.news.length;i++){
+            if(me.news[i].id==me.id){
+              me.index = i;
+              break;
+            }
+          }
+          console.log(me.index);
         });
       },
 
       loadUpDown(type) {
         let me = this;
         if (type === "up") {
-          me.$message.info("没有上一条资讯了");
+          this.index--;
+          if(this.index<0){
+            me.$message.info("没有上一条资讯了");
+          }else {
+            me.model = me.news[me.index];
+          }
         }
         if (type === "down") {
-          me.$message.info("没有下一条资讯了");
+          this.index++;
+          if(this.index>this.news.length-1){
+            me.$message.info("没有下一条资讯了");
+          }else {
+            me.model = me.news[me.index];
+          }
         }
       }
     },

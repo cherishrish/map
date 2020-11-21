@@ -1,13 +1,13 @@
 <template>
     <div>
-      <div class="mapInfo_view_point" v-show="pointShow">
+      <div class="mapInfo_view_point" v-show="portShow">
         <div class="mapInfo_view_table">
           <table class="table" width="100%">
             <tr>
               <th width="300">地点主题列表</th>
               <th>时间</th>
             </tr>
-            <tr v-for="(item, index) in point" :key="index" >
+            <tr v-for="(item, index) in newsList" :key="index" >
               <td v-if="item.port==port" align="left" width="300">
                 <a href="javascript:;" @click="onSubjectClick(item, item.port)"
                    :title="item.subject">{{item.subject}}</a>
@@ -21,28 +21,10 @@
         <div class="mapInfo_view_table">
           <table class="table" width="100%">
             <tr>
-              <th width="60%">最新主题</th>
-              <th width="20%">地点</th>
-              <th width="20%">时间</th>
+              <th width="60%">热门港口</th>
+              <th width="40%">新闻数</th>
             </tr>
-            <tr v-for="(item, index) in point" :key="index">
-              <td align="left">
-                <a href="javascript:;" @click="onSubjectClick(item, item.port)" :title="item.subject">{{item.subject}}</a>
-              </td>
-              <td>
-                <a href="javascript:;" @click="onPlaceClick(item)">{{item.port}}</a>
-              </td>
-              <td>{{formatRDate(item.subject_time)}}</td>
-            </tr>
-          </table>
-        </div>
-        <div class="mapInfo_view_table">
-          <table class="table" width="100%">
-            <tr>
-              <th width="60%">热门地点</th>
-              <th width="40%">主题数</th>
-            </tr>
-            <tr v-for="(item, index) in statList" :key="index">
+            <tr v-for="(item, index) in portList" :key="index">
               <td>
                 <a href="javascript:;" @click="onPlaceClick(item)">{{item.port}}</a>
               </td>
@@ -50,6 +32,28 @@
                 <a href="javascript:;" @click="onPlaceClick(item)">{{item.c}}</a>
               </td>
             </tr>
+          </table>
+        </div>
+        <div class="mapInfo_view_table">
+          <table class="table">
+            <thead>
+              <tr>
+                <th width="60%">最新新闻</th>
+                <th width="20%">港口</th>
+                <th >时间</th>
+              </tr>
+            </thead>
+            <tbody :class="{anim:animate==true, hei: isLenght===true}">
+              <tr v-for="(item, index) in newsList" :key="index">
+                <td width="60%" >
+                  <a href="javascript:;" @click="onSubjectClick(item, item.port)" :title="item.subject">{{item.subject}}</a>
+                </td>
+                <td width="20%">
+                  <a href="javascript:;" @click="onPlaceClick(item)">{{item.port}}</a>
+                </td >
+                <td >{{formatRDate(item.subject_time)}}</td>
+              </tr>
+            </tbody>
           </table>
         </div>
       </div>
@@ -60,23 +64,55 @@
   import * as Cesium from '../../static/Cesium/Cesium'
   export default {
     name: 'MapInfo',
-    props:['pointShow','port','point'],
+    props:['port','portList','viewer'],
     data(){
       return{
-        // pointShow: false,
         pointList:[],
-        statList:[]
+        newsList:[],
+        animate:false,
+        timer:'',
+        endId:'',
+        isLenght:false,
+        portShow:false,
+        num:0
       }
     },
+    created(){
+      this.getList()
+    },
     mounted(){
-      this.$axios.get('http://localhost:8080/static/state.json').then(res=>{
-        this.statList = res.data;
-        console.log(this.statList);
-      }).catch(error=>{
-        console.log('error')
-      })
     },
     methods:{
+      scroll () {
+        this.animate = true
+        setTimeout(() => {
+          this.newsList.push(this.newsList[0])
+          this.newsList.shift()
+          this.animate = false
+          if (this.newsList[0].id === this.endId) {
+            // console.log('请求刷新数据')
+            this.getList()
+            clearInterval(this.timer)
+          }
+        }, 500)
+      },
+
+      getList(){
+        this.$axios.get('http://localhost:8080/static/db.json').then(res=>{
+          this.newsList=res.data;
+          this.endId = this.newsList[this.newsList.length-1].id
+          if (this.newsList.length > 4) {
+            this.isLenght = true
+            this.timer = setInterval(this.scroll, 10000)
+          } else {
+            this.isLenght = false
+            clearInterval(this.timer)
+           }
+        }).catch(error=>{
+          console.log('error')
+        })
+      },
+
       formatRDate(date) {
         let d = new Date(date);
         let now = new Date().getTime();
@@ -111,6 +147,7 @@
 
       onPlaceClick(item) {
         this.$emit('place-click',item);
+        this.portShow = true;
       },
 
       onSubjectClick(item, port) {
@@ -134,8 +171,8 @@
 
   .mapInfo_view {
     position: absolute;
-    bottom: 10px;
-    right: 96px;
+    top: 10px;
+    left: 96px;
     width: 460px;
     display: block;
   }
@@ -160,16 +197,70 @@
     background-color: rgba(255, 255, 255, 0.9);
     box-shadow: 1px 2px 4px #11035440;
 
-    table th {
+    .table th {
       font-weight: bold;
     }
 
-    table td[align='left'] a {
+    .table td[align='left'] a {
       width: 300px;
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
       display: block;
+    }
+
+    .table{
+       width: 100%;
+        border: 1px solid #86c7ff;
+       position: relative;
+    }
+
+    .table thead {
+      width: 100%;
+      text-align: center;
+      line-height: 40px;
+      font-size: 16px;
+      display: table;
+      color: #000000;
+      table-layout: fixed;
+      border-bottom: none;
+      box-sizing: border-box;
+    }
+    .table thead th {
+      font-weight: 300;
+      table-layout: fixed;
+      box-sizing: border-box;
+    }
+    .table tbody.hei{
+      height: 200px;
+    }
+    .table tbody {
+      display: block;
+      text-align: left;
+      width: 100%;
+      /* height: 352px; */
+      /* 隐藏滚动条兼容 */
+      -ms-scroll-chaining: chained;
+      -ms-content-zooming: zoom;
+      -ms-scroll-rails: none;
+      -ms-content-zoom-limit-min: 100%;
+      -ms-content-zoom-limit-max: 500%;
+      /* -ms-scroll-snap-type: proximity; */
+      -ms-scroll-snap-points-x: snapList(100%, 200%, 300%, 400%, 500%);
+      -ms-overflow-style: none;
+      overflow-y: scroll;
+      /* 火狐 */
+      scrollbar-width: none;
+      /* ie */
+      -ms-overflow-style: none;
+      table-layout: fixed;
+    }
+    .table tbody::-webkit-scrollbar {
+      display: none;
+    }
+    .anim{
+      transition: all 0.5s;
+      margin-top: -32px;
     }
   }
 </style>

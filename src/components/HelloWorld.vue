@@ -1,48 +1,15 @@
 <template>
   <div class="hello">
     <div id="cesiumContainer"></div>
-    <div class="operation">
-      <div class="operation-item">
-          <a href="javascript:" @click="onOperationLayerShow">
-            <span class="change-color">
-            <i class="right-icon ivu-icon el-icon-s-data"/>数据图层
-            </span>
-          </a>
-      </div>
-      <!-- 地图资讯-->
-      <div class="operation-item">
-        <a href="javascript:" @click="onOperationMapInfoShow">
-          <span class="change-color">
-            <i class="right-icon ivu-icon el-icon-tickets"/>地图资讯
-          </span>
-        </a>
-      </div>
-    </div>
-    <el-dialog
-      align="left"
-      :visible.sync="mapInfo.confirm"
-      width="30%"
-      :destroy-on-close="true">
-<!--      设置对话框标题样式-->
-      <template slot="title">
-        <div style="font-size: 18px;color: #81d8d0;font-weight: bold;text-align: center">提示</div>
-      </template>
-      <span>
-        确定打开地图资讯吗？这将重置地图（清除标注、标绘、业务绘图等）再加载资讯信息？
-      </span>
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="mapInfo.confirm = false" size="mini">取 消</el-button>
-        <el-button type="primary" @click="onOperationMapInfoSwitch(true)" size="mini">确 定</el-button>
-      </span>
-    </el-dialog>
-    <MapInfo v-if="mapInfo.show" :pointShow="pointShow" :port="port" :point="point" @subject-click="onOperationMapInfoSubjectClick" @place-click="onOperationPoint"></MapInfo>
+    <MapInfo :port="port" :portList="portList" :viewer="viewer" @subject-click="onOperationMapInfoSubjectClick"
+             @place-click="onOperationPort"></MapInfo>
 
     <WebEarthF1_MapInfo_Dialog v-if="mapInfo.showDialog"
                                :id="mapInfo.id" :place="mapInfo.place" :lng="mapInfo.lng" :lat="mapInfo.lat"
                                @close="onOperationMapInfoSubjectClose"/>
 
-    <MapLayer v-if="layerShow" :point="point" @heat-click="onHeatClick" @bar-click="onBarClick"/>
-    <bar v-if="barShow" :objectData = "objectData"></bar>
+<!--    <MapLayer v-if="layerShow" :point="point" @heat-click="onHeatClick" @bar-click="onBarClick"/>-->
+<!--    <bar v-if="barShow" :objectData = "objectData"></bar>-->
   </div>
 
 
@@ -86,11 +53,11 @@ export default {
         inPort:[],
         outPort:[]
       },
+      portList:[],
       layerShow:false,
       port:'',
       pointShow: false,
-      point:[],
-      entities:[],
+      entities:'',
       barShow:false,
     }
   },
@@ -102,6 +69,7 @@ export default {
   mounted () {
     let me = this;
     this.init();
+    this.initNews();
     new Cesium.ScreenSpaceEventHandler(this.viewer.canvas).setInputAction(function (e) {
       var earthPosition = me.viewer.scene.pickPosition(e.position);
       var entity = me.viewer.scene.pick(e.position);
@@ -121,8 +89,8 @@ export default {
     }, Cesium.ScreenSpaceEventType.LEFT_CLICK)
   },
   methods: {
+    /*Initialize the map*/
     init () {
-
       this.viewer = new Cesium.Viewer('cesiumContainer', {
         geocoder: false, // 地理位置查询定位控件
         homeButton: false, // 默认相机位置控件
@@ -147,46 +115,14 @@ export default {
       this.viewer._cesiumWidget._creditContainer.style.display = 'none'
     },
 
-    onOperationMapInfoShow() {
-      if (this.mapInfo.show) {
-        this.onOperationMapInfoSwitch(false);
-        return;
-      }
-      this.mapInfo.confirm = true;
-    },
 
-    onOperationMapInfoSwitch(show) {
-      if(show){
-        this.$axios.get('http://localhost:8080/static/db.json').then(res=>{
-          this.point = res.data;
-          console.log(this.point);
-          for(var i=0; i<this.point.length;i++){
-            var board = this.viewer.entities.add({
-              name: this.point[i].port,
-              position: new Cesium.Cartesian3.fromDegrees(this.point[i].lng, this.point[i].lon),
-              billboard: {
-                image: require("../assets/marker3.png"),
-                scale: 1,
-                horizontalOrigin: Cesium.HorizontalOrigin.CENTER,
-                verticalOrigin: Cesium.VerticalOrigin.BOTTOM,
-                heightReference: Cesium.HeightReference.CLAMP_TO_GROUND
-              },
-            });
-            this.entities.push(board);
-          }
-          this.mapInfo.confirm = false;
-          this.mapInfo.show = true;
-        }).catch(error=>{
-          console.log('error')
-        })
-      }else{
-        this.mapInfo.show = false;
-        var primitives = this.viewer.entities;
-        for (var i = 0; i <  this.entities.length; i++) {
-          primitives.remove(this.entities[i]);
-        }
-        this.entities=[];
-      }
+    initNews() {
+      this.$axios.get('http://localhost:8080/static/state.json').then(res=>{
+        this.portList = res.data;
+      }).catch(error=>{
+        console.log('error')
+      })
+
 
     },
     onOperationMapInfoSubjectClose() {
@@ -199,21 +135,30 @@ export default {
       this.mapInfo.lng = item.lng;
       this.mapInfo.lat = item.lon;
     },
-    onOperationPoint(item){
+    onOperationPort(item){
+      if(this.entities!=''){
+        this.viewer.entities.remove(this.entities);
+      }
+
+      var board = this.viewer.entities.add({
+        name: item.port,
+        position: new Cesium.Cartesian3.fromDegrees(item.lng, item.lon),
+        billboard: {
+          image: require("../assets/marker3.png"),
+          scale: 1,
+          horizontalOrigin: Cesium.HorizontalOrigin.CENTER,
+          verticalOrigin: Cesium.VerticalOrigin.BOTTOM,
+          heightReference: Cesium.HeightReference.CLAMP_TO_GROUND
+        },
+      });
+      this.entities=board;
       this.viewer.camera.flyTo({   //相机飞往该点
         destination: new Cesium.Cartesian3.fromDegrees(item.lng, item.lon, 600), //摄像机的最终位置
       })
       this.pointShow = true;
       this.port = item.port;
     },
-    onOperationLayerShow(){
-      if(this.layerShow){
-        this.layerShow = false;
-        this.barShow = false;
-      }else{
-        this.layerShow = true;
-      }
-    },
+
     onHeatClick(item){
       // 矩形坐标
       var east = parseFloat(item.lng)+0.0002;
