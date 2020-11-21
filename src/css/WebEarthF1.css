@@ -169,10 +169,24 @@
   border: 1px solid #dbdee2;
   padding: 5px;
   text-align: center;
+  /*修改新闻链接列表中的a颜色*/
+  /*!*访问连接后链接变色，但是并没有反应，可能涉及到链接是伪链接的问题，浏览器没有产生浏览记录*!*/
 }
 .hello .table tr td a {
   padding: 0 !important;
   text-decoration: none;
+}
+.hello .table tr td a:link {
+  color: #515a6e;
+}
+.hello .table tr td a:visited {
+  color: #81d8d0;
+}
+.hello .table tr td a:hover {
+  color: #81d8d0;
+}
+.hello .table tr td a:active {
+  color: #81d8d0;
 }
 .hello #cesiumContainer {
   height: 100%;

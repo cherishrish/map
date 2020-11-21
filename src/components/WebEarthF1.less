@@ -221,6 +221,22 @@
         padding: 0 !important;
         text-decoration: none;
       }
+      /*修改新闻链接列表中的a颜色*/
+      a:link{
+        color: #515a6e;
+      }
+      /*!*访问连接后链接变色，但是并没有反应，可能涉及到链接是伪链接的问题，浏览器没有产生浏览记录*!*/
+      a:visited{
+        color: #81d8d0;
+      }
+
+      a:hover{
+        color: #81d8d0;
+      }
+
+      a:active{
+        color: #81d8d0;
+      }
     }
   }
 }
@@ -672,6 +688,7 @@
     color: black;
     font-weight: bold;
   }
+
   a:hover{
     color: #81dbd0;
   }

@@ -123,14 +123,6 @@
 </script>
 
 <style scoped lang="less">
-  /*修改新闻列表中的链接颜色*/
-  a{
-    color: #515a6e;
-  }
-
-  a:hover{
-    color: #81d8d0;
-  }
 
   .mapInfo_view {
     position: absolute;
@@ -171,5 +163,6 @@
       text-overflow: ellipsis;
       display: block;
     }
+
   }
 </style>
