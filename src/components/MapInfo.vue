@@ -42,9 +42,14 @@
               <th width="60%">热门地点</th>
               <th width="40%">主题数</th>
             </tr>
+<!--            <tr v-for="(item, index) in statList" :key="index":class="{active: checkedGroup.indexOf(index) > -1}" @click="changeStyle(index)">-->
             <tr v-for="(item, index) in statList" :key="index">
               <td>
+<!--a href="javascript:;"阻止了a标签跳转链接                  -->
+<!--                <div v-for="(item,index) in statList" v-bind:class="{active:index==isActive}" @click="checkedItem(index)">-->
+<!--                <a href="javascript:;" @click="onPlaceClick(item)">{{item.port}}</a>-->
                 <a href="javascript:;" @click="onPlaceClick(item)">{{item.port}}</a>
+<!--                </div>-->
               </td>
               <td>
                 <a href="javascript:;" @click="onPlaceClick(item)">{{item.c}}</a>
@@ -65,7 +70,8 @@
       return{
         // pointShow: false,
         pointList:[],
-        statList:[]
+        statList:[],
+        // checkedGroup: [],
       }
     },
     mounted(){
@@ -111,6 +117,7 @@
 
       onPlaceClick(item) {
         this.$emit('place-click',item);
+        // this.isActive=index;
       },
 
       onSubjectClick(item, port) {
@@ -118,11 +125,29 @@
         this.onPlaceClick(item);
         this.$emit('subject-click', item, port);
       },
-    }
+
+      // changeStyle(index) {
+      //   // if(this.checkedGroup.indexOf(index) == -1) {
+      //     this.checkedGroup.push(index); //实现第一种效果只需要这句代码  实现第二种效果就要加上外面的判断条件
+      //   // }
+      //   // else {
+      //   //   var spliceIndex = this.checkedGroup.indexOf(index);
+      //   //   this.checkedGroup.splice(spliceIndex, 1);
+      //   // }
+      // },
+    },
   }
 </script>
 
+
 <style scoped lang="less">
+  a{
+    color: #515a6e;
+  }
+
+  a:hover{
+    color: #81d8d0;
+  }
 
   .mapInfo_view {
     position: absolute;
@@ -139,6 +164,20 @@
     right: 96px;
     width: 460px;
     display: block;
+  }
+  /*!*改变热门地点的a标签样式*!*/
+  /*.changeAcolor{*/
+  /*  a:link{*/
+  /*    color: #515a6e;*/
+  /*  }*/
+  /*  a:visited,*/
+  /*  a:hover,*/
+  /*  a:active{*/
+  /*    color: #81d8d0;*/
+  /*  }*/
+  /*}*/
+  .active{
+    color: #81d8d0;
   }
 
   .mapInfo_view_table {
