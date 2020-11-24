@@ -2,14 +2,12 @@
   <div class="hello">
     <div id="cesiumContainer"></div>
     <MapInfo :port="port" :portList="portList" :viewer="viewer" @subject-click="onOperationMapInfoSubjectClick"
-             @place-click="onOperationPort"></MapInfo>
+             @place-click="onOperationPort" @bar-click="onBarClick" @heat-click="onHeatClick"></MapInfo>
 
     <WebEarthF1_MapInfo_Dialog v-if="mapInfo.showDialog"
                                :id="mapInfo.id" :place="mapInfo.place" :lng="mapInfo.lng" :lat="mapInfo.lat"
                                @close="onOperationMapInfoSubjectClose"/>
-
-<!--    <MapLayer v-if="layerShow" :point="point" @heat-click="onHeatClick" @bar-click="onBarClick"/>-->
-<!--    <bar v-if="barShow" :objectData = "objectData"></bar>-->
+    <bar v-if="barShow" :objectData = "objectData"></bar>
   </div>
 
 
@@ -59,7 +57,10 @@ export default {
       pointShow: false,
       entities:'',
       barShow:false,
-    }
+      heatMap:'',
+      lastPort:'',
+      create:true
+  }
   },
 
   created(){
@@ -69,6 +70,8 @@ export default {
   mounted () {
     let me = this;
     this.init();
+
+
     this.initNews();
     new Cesium.ScreenSpaceEventHandler(this.viewer.canvas).setInputAction(function (e) {
       var earthPosition = me.viewer.scene.pickPosition(e.position);
@@ -136,6 +139,7 @@ export default {
       this.mapInfo.lat = item.lon;
     },
     onOperationPort(item){
+      this.barShow = false;
       if(this.entities!=''){
         this.viewer.entities.remove(this.entities);
       }
@@ -159,52 +163,73 @@ export default {
       this.port = item.port;
     },
 
-    onHeatClick(item){
-      // 矩形坐标
-      var east = parseFloat(item.lng)+0.0002;
-      var west = parseFloat(item.lng)-0.0002;
-      var north = parseFloat(item.lon)+0.0002;
-      var south = parseFloat(item.lon)-0.0002;
+    onHeatClick(port,display){
+        this.$axios.get('http://localhost:8080/static/state.json').then(res=>{
+          var ports = res.data;
+          var item;
+          for(var i=0;i<ports.length;i++){
+            if(ports[i].port==port){
+              item = ports[i];
+              break;
+            }
+          }
+          // 矩形坐标
+          var east = parseFloat(item.lng)+0.0002;
+          var west = parseFloat(item.lng)-0.0002;
+          var north = parseFloat(item.lon)+0.0002;
+          var south = parseFloat(item.lon)-0.0002;
 
-      var bounds = {
-          west: west, south: south, east: east, north: north
-      };
+          var bounds = {
+            west: west, south: south, east: east, north: north
+          };
 
-// 初始化CesiumHeatmap
-      var heatMap = CesiumHeatmap.create(
-        this.viewer, // 视图层
-        bounds, // 矩形坐标
-        { // heatmap相应参数
-          backgroundColor: "rgba(0,0,0,0)",
-          radius: 50,
-          maxOpacity: .5,
-          minOpacity: 0,
-          blur: .75
-        }
-      );
+          // 初始化CesiumHeatmap
+          if(port != this.lastPort){
+            if(!this.create){
+              this.heatMap.show(false);
+            }
+            this.heatMap = CesiumHeatmap.create(
+              this.viewer, // 视图层
+              bounds, // 矩形坐标
+              { // heatmap相应参数
+                backgroundColor: "rgba(0,0,0,0)",
+                radius: 50,
+                maxOpacity: .5,
+                minOpacity: 0,
+                blur: .75
+              }
+            );
+            this.lastPort = port;
+            this.create = false;
+          }
 
-      // 添加数据 最小值，最大值，数据集
-      heatMap.setWGS84Data(0, 100, this.getData(50,east,west,north,south));
+          // 添加数据 最小值，最大值，数据集
+          this.heatMap.setWGS84Data(0, 100, this.getData(50,east,west,north,south));
 
-      this.viewer.camera.flyTo({
-        destination:Cesium.Cartesian3.fromDegrees(parseFloat(item.lng),parseFloat(item.lon),200),
-        orientation: {
-          heading: Cesium.Math.toRadians(0.0),
-          pitch: Cesium.Math.toRadians(-90.0),
-          roll: 0.0
-        }
-      });
+          this.heatMap.show(display);
+
+          this.viewer.camera.flyTo({
+            destination:Cesium.Cartesian3.fromDegrees(parseFloat(item.lng),parseFloat(item.lon),200),
+            orientation: {
+              heading: Cesium.Math.toRadians(0.0),
+              pitch: Cesium.Math.toRadians(-90.0),
+              roll: 0.0
+            }
+          });
+
+        })
+
     },
 
-    onBarClick(item,index){
+    onBarClick(port,index){
       this.$axios.get('http://localhost:8080/static/chart.json').then(res=>{
         this.barShow = true;
         var portList = res.data;
         console.log(portList[0])
         for(var i=0;i<portList.length;i++){
-          if(portList[i].port==item.port){
+          if(portList[i].port==port){
             var bar =  portList[i];
-            this.objectData.port = item.port;
+            this.objectData.port = port;
             this.objectData.barType = index;
             this.objectData.inPort = bar.in;
             this.objectData.outPort = bar.out;

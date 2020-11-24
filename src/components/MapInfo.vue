@@ -4,7 +4,7 @@
         <div class="mapInfo_view_table">
           <table class="table" width="100%">
             <tr>
-              <th width="300">地点主题列表</th>
+              <th width="300">{{port}}新闻列表</th>
               <th>时间</th>
             </tr>
             <tr v-for="(item, index) in newsList" :key="index" >
@@ -13,6 +13,28 @@
                    :title="item.subject">{{item.subject}}</a>
               </td>
               <td v-if="item.port==port">{{formatRDate(item.subject_time)}}</td>
+            </tr>
+          </table>
+        </div>
+        <div class="mapInfo_view_table">
+          <table class="table" width="100%">
+            <tr>
+              <th width="300">{{port}}数据展示</th>
+              <th>操作</th>
+            </tr>
+            <tr>
+              <td>热力图</td>
+              <td>
+                <a v-if="heatDisplay" href="javascript:;" @click="onHeatClick(heatDisplay)">显示</a>
+                <a v-if="!heatDisplay" href="javascript:;" @click="onHeatClick(heatDisplay)">隐藏</a>
+              </td>
+            </tr>
+            <tr>
+              <td>进出港口货物统计图</td>
+              <td>
+                <a v-if="barDisplay" href="javascript:;" @click="onChartClick(barDisplay)">折线图</a>
+                <a v-if="!barDisplay" href="javascript:;" @click="onChartClick(barDisplay)">柱状图</a>
+              </td>
             </tr>
           </table>
         </div>
@@ -68,7 +90,9 @@
     data(){
       return{
         pointList:[],
-        newsList:[],
+        newsList: [],
+        heatDisplay: true,
+        barDisplay: true,
         animate:false,
         timer:'',
         endId:'',
@@ -148,12 +172,27 @@
       onPlaceClick(item) {
         this.$emit('place-click',item);
         this.portShow = true;
+        this.heatDisplay = true;
+        this.barDisplay = true;
       },
 
       onSubjectClick(item, port) {
-        console.log(this.port)
         this.onPlaceClick(item);
         this.$emit('subject-click', item, port);
+      },
+
+      onHeatClick(display){
+        this.heatDisplay = !display;
+        this.$emit('heat-click', this.port,display);
+      },
+
+      onChartClick(display){
+        this.barDisplay = !display;
+        var index = 2;
+        if(display){
+          index = 1
+        }
+        this.$emit('bar-click', this.port,index);
       },
     }
   }
@@ -171,17 +210,17 @@
 
   .mapInfo_view {
     position: absolute;
-    top: 10px;
-    left: 96px;
+    top: 70px;
+    left: 10px;
     width: 460px;
     display: block;
   }
 
   .mapInfo_view_point {
     position: absolute;
-    top: 75px;
+    top: 70px;
     /*将地点主题列表置于右侧选择按钮下*/
-    right: 96px;
+    right: 10px;
     width: 460px;
     display: block;
   }

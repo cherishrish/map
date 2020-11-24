@@ -324,6 +324,7 @@ CHInstance.prototype.show = function (s) {
 	}
 };
 
+
 /*  Update/(re)draw the heatmap
  */
 CHInstance.prototype.updateLayer = function () {
