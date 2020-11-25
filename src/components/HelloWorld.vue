@@ -70,8 +70,6 @@ export default {
   mounted () {
     let me = this;
     this.init();
-
-
     this.initNews();
     new Cesium.ScreenSpaceEventHandler(this.viewer.canvas).setInputAction(function (e) {
       var earthPosition = me.viewer.scene.pickPosition(e.position);
@@ -122,6 +120,7 @@ export default {
     initNews() {
       this.$axios.get('http://localhost:8080/static/state.json').then(res=>{
         this.portList = res.data;
+        console.log(this.portList)
       }).catch(error=>{
         console.log('error')
       })

@@ -48,7 +48,7 @@
             </tr>
             <tr v-for="(item, index) in portList" :key="index">
               <td>
-                <a href="javascript:;" @click="onPlaceClick(item)">{{item.port}}</a>
+                <a :class="{show:item.isShow}" href="javascript:;" @click="onPlaceClick(item)">{{item.port}}</a>
               </td>
               <td>
                 <a href="javascript:;" @click="onPlaceClick(item)">{{item.c}}</a>
@@ -71,7 +71,7 @@
                   <a href="javascript:;" @click="onSubjectClick(item, item.port)" :title="item.subject">{{item.subject}}</a>
                 </td>
                 <td width="20%">
-                  <a href="javascript:;" @click="onPlaceClick(item)">{{item.port}}</a>
+                  <a :class="{show:item.isShow}" href="javascript:;" @click="onPlaceClick(item)">{{item.port}}</a>
                 </td >
                 <td >{{formatRDate(item.subject_time)}}</td>
               </tr>
@@ -98,7 +98,8 @@
         endId:'',
         isLenght:false,
         portShow:false,
-        num:0
+        num:0,
+        item:''
       }
     },
     created(){
@@ -171,6 +172,12 @@
 
       onPlaceClick(item) {
         this.$emit('place-click',item);
+        if(this.item!=''){
+          this.item.isShow = false;
+        }
+        console.log(this.item)
+        item.isShow = true;
+        this.item = item;
         this.portShow = true;
         this.heatDisplay = true;
         this.barDisplay = true;
@@ -210,7 +217,7 @@
 
   .mapInfo_view {
     position: absolute;
-    top: 70px;
+    bottom: 10px;
     left: 10px;
     width: 460px;
     display: block;
@@ -218,11 +225,15 @@
 
   .mapInfo_view_point {
     position: absolute;
-    top: 70px;
+    top: 10px;
     /*将地点主题列表置于右侧选择按钮下*/
     right: 10px;
     width: 460px;
     display: block;
+  }
+
+  .show{
+    color:red;
   }
 
   .mapInfo_view_table {

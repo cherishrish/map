@@ -80,9 +80,9 @@
 <style scoped>
   .bar {
     position: absolute;
-    bottom: 75px;
+    bottom: 140px;
     right: 10px;
-    width: 500px;
+    width: 450px;
     height: 300px;
     display: block;
     background: rgba(255, 255, 255, 0.4);
