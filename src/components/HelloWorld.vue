@@ -163,6 +163,7 @@ export default {
       this.port = item.port;
     },
 
+    //热力图
     onHeatClick(port,display){
         this.$axios.get('http://localhost:8080/static/state.json').then(res=>{
           var ports = res.data;

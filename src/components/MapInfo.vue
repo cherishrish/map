@@ -219,7 +219,7 @@
   .mapInfo_view_point {
     position: absolute;
     top: 70px;
-    /*将地点主题列表置于右侧选择按钮下*/
+    /*修改与右侧边栏的距离*/
     right: 10px;
     width: 460px;
     display: block;
@@ -230,14 +230,18 @@
     width: 100%;
     padding: 4px;
     margin-bottom: 10px;
-    /*删除列表白色边框*/
+    /*删除列表白色外边框*/
     /*border: 2px solid #f7f7f7;*/
     border-radius: 4px;
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: rgba(240, 255, 255, 0.7);
     box-shadow: 1px 2px 4px #11035440;
+    //加宽与左侧边栏的距离
+    left: 10px;
 
     .table th {
       font-weight: bold;
+      /*添加表头背景色，用于区分*/
+      /*background-color: #E0FFFF;*/
     }
 
     .table td[align='left'] a {
@@ -250,7 +254,7 @@
 
     .table{
        width: 100%;
-        border: 1px solid #86c7ff;
+       border: 1px solid #86c7ff;
        position: relative;
     }
 
@@ -266,9 +270,14 @@
       box-sizing: border-box;
     }
     .table thead th {
-      font-weight: 300;
+      /*加粗表头文字*/
+      font-weight: bold;
+      /*表格布局改成自动*/
       table-layout: fixed;
+      /*并排放置两个带边框的框，并设置不同浏览器版本兼容*/
       box-sizing: border-box;
+      -moz-box-sizing:border-box; /* Firefox */
+      -webkit-box-sizing:border-box; /* Safari */
     }
     .table tbody.hei{
       height: 200px;

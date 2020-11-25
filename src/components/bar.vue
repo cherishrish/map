@@ -82,7 +82,8 @@
     position: absolute;
     bottom: 75px;
     right: 10px;
-    width: 500px;
+    /*统一宽度*/
+    width: 460px;
     height: 300px;
     display: block;
     background: rgba(255, 255, 255, 0.4);

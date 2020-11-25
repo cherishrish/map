@@ -156,17 +156,17 @@
   top: -53px;
 }
 .hello .table {
-  border: 1px solid #dbdee2;
+  border: 1px solid #c0c0c0;
   border-collapse: collapse;
   width: 100%;
 }
 .hello .table tr th {
-  border: 1px solid #dbdee2;
+  border: 1px solid #c0c0c0;
   padding: 8px;
   text-align: center;
 }
 .hello .table tr td {
-  border: 1px solid #dbdee2;
+  border: 1px solid #c0c0c0;
   padding: 5px;
   text-align: center;
 }
@@ -538,5 +538,7 @@
 /*新闻图片样式*/
 .news-image {
   text-align: center;
+  width: 100%;
+  height: auto;
 }
 /*# sourceMappingURL=WebEarthF1.css.map */

@@ -21,6 +21,9 @@
       </div>
       <div class="item content">
         <div v-html="model.content"></div>
+<!--        <div class="demo demo-1">-->
+<!--          <div class="scrollar"></div>-->
+<!--        </div>-->
       </div>
       <div class="btn-left" v-show="hasUp">
         <button type="button" @click="onHandlePrevInfo" title="查看上一条资讯">
