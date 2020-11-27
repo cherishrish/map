@@ -82,7 +82,7 @@
     position: absolute;
     bottom: 140px;
     right: 10px;
-    width: 450px;
+    width: 480px;
     height: 300px;
     display: block;
     background: rgba(255, 255, 255, 0.4);

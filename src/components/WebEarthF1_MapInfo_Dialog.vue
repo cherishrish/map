@@ -9,9 +9,9 @@
 
     <el-dialog align="left" :visible.sync="showDialog" :close-on-click-modal="false"
                width="60%" :show-close="false" :destroy-on-close="true">
-<!--      设置对话框title样式-->
+      <!--      设置对话框title样式-->
       <template slot="title">
-        <div style="color: #81d8d0;font-size: 30px;font-weight: bold;text-align: center">{{model.subject}}</div>
+        <div style="color: black;font-size: 30px;font-weight: bold;text-align: center">{{model.subject}}</div>
       </template>
       <div class="item info">
         地点：{{model.port}} ({{model.lng}}, {{model.lon}})
@@ -165,7 +165,9 @@
 
       button, a {
         display: block;
-        background-color: #f3f3f3;
+        /*修改按钮的颜色以及透明度*/
+        background-color: rgba(0,0,0,0.1);
+        /*光标的指针样式*/
         cursor: pointer;
         padding: 10px;
 
@@ -173,28 +175,32 @@
         border-radius: 23px;
 
         font-size: 24px;
+        /*修改按钮上的字体颜色*/
+        color: #fff;
+        /*去除灰色按钮周围灰色背景*/
+        border: 0;
 
-        color: #333;
 
         i {
-          font-size: 24px;
-          color: #333;
-          font-weight: 500;
+          font-size: 20px;
+          color: #fff;
+          font-weight: bolder;
         }
 
         &:hover {
-          color: #81d8d0;
+          background-color: #81d8d0;
 
           i {
-            color: #81d8d0;
+            background-color: #81d8d0;
           }
         }
       }
     }
 
     div.btn-return {
-      top: 10px;
-      left: 40px;
+
+      top: 20px;
+      left: 20px;
     }
 
     div.btn-more {
@@ -208,23 +214,29 @@
 
     div.btn-left {
       top: 50%;
-      left: -100px;
+      left: 1px;
 
       button {
         padding: 10px;
-        width: 60px;
-        border-radius: 50px;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        /*箭头居中显示*/
+        line-height: 20px;
       }
     }
 
     div.btn-right {
       top: 50%;
-      right: -100px;
+      right: 1px;
 
       button {
         padding: 10px;
-        width: 60px;
-        border-radius: 50px;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        /*箭头居中显示*/
+        line-height: 20px;
       }
     }
 

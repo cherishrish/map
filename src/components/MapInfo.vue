@@ -1,7 +1,7 @@
 <template>
     <div>
       <div class="mapInfo_view_point" v-show="portShow">
-        <div class="mapInfo_view_table">
+        <div class="mapInfo_view_table mapInfo_view_table_line">
           <table class="table" width="100%">
             <tr>
               <th width="300">{{port}}新闻列表</th>
@@ -16,7 +16,7 @@
             </tr>
           </table>
         </div>
-        <div class="mapInfo_view_table">
+        <div class="mapInfo_view_table mapInfo_view_table_data">
           <table class="table" width="100%">
             <tr>
               <th width="300">{{port}}数据展示</th>
@@ -217,6 +217,7 @@
 
   .mapInfo_view {
     position: absolute;
+    /*距离底部*/
     bottom: 10px;
     left: 10px;
     width: 460px;
@@ -231,9 +232,9 @@
     width: 460px;
     display: block;
   }
-
+  /*点击链接显示点击后的颜色*/
   .show{
-    color:red;
+    color:#81d8d0;
   }
 
   .mapInfo_view_table {
@@ -261,7 +262,7 @@
 
     .table{
        width: 100%;
-        border: 1px solid #86c7ff;
+       /*border: 1px solid #86c7ff;*/
        position: relative;
     }
 
@@ -277,9 +278,12 @@
       box-sizing: border-box;
     }
     .table thead th {
-      font-weight: 300;
+      /*加粗新闻刷新列表的表头文字*/
+      font-weight: bold;
       table-layout: fixed;
       box-sizing: border-box;
+      /*添加列表顶头颜色*/
+      border-top: 3px solid #86c7ff;
     }
     .table tbody.hei{
       height: 200px;
@@ -313,4 +317,28 @@
       margin-top: -32px;
     }
   }
+
+  /*新闻列表样式*/
+  .mapInfo_view_table_line{
+    .table th {
+      border-top: 3px solid red;
+    }
+  }
+
+  /*数据展示模块样式*/
+  .mapInfo_view_table_data{
+    .table th{
+      border-top: 3px solid orange;
+    }
+  }
+
+  /*热门港口样式*/
+
+  .mapInfo_view_table_hotPort{
+    /*表格样式设置*/
+    .table{
+
+    }
+  }
+
 </style>
