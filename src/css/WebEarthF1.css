@@ -156,17 +156,17 @@
   top: -53px;
 }
 .hello .table {
-  border: 1px solid #dbdee2;
+  border: 1px solid #515a6e;
   border-collapse: collapse;
   width: 100%;
 }
 .hello .table tr th {
-  border: 1px solid #dbdee2;
+  border: 1px solid #515a6e;
   padding: 8px;
   text-align: center;
 }
 .hello .table tr td {
-  border: 1px solid #dbdee2;
+  border: 1px solid #515a6e;
   padding: 5px;
   text-align: center;
 }

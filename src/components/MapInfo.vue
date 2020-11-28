@@ -40,7 +40,7 @@
         </div>
       </div>
       <div class="mapInfo_view">
-        <div class="mapInfo_view_table">
+        <div class="mapInfo_view_table mapInfo_view_table_hotPort">
           <table class="table" width="100%">
             <tr>
               <th width="60%">热门港口</th>
@@ -56,7 +56,7 @@
             </tr>
           </table>
         </div>
-        <div class="mapInfo_view_table">
+        <div class="mapInfo_view_table mapInfo_view_table_news">
           <table class="table">
             <thead>
               <tr>
@@ -240,18 +240,18 @@
   .mapInfo_view_table {
     display: block;
     width: 100%;
-    padding: 4px;
+    /*去掉内边距*/
+    padding: 3px;
     margin-bottom: 10px;
     /*删除列表白色边框*/
     /*border: 2px solid #f7f7f7;*/
     border-radius: 4px;
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: rgba(245, 245, 245, 0.8);
     box-shadow: 1px 2px 4px #11035440;
 
     .table th {
       font-weight: bold;
     }
-
     .table td[align='left'] a {
       width: 300px;
       overflow: hidden;
@@ -282,8 +282,6 @@
       font-weight: bold;
       table-layout: fixed;
       box-sizing: border-box;
-      /*添加列表顶头颜色*/
-      border-top: 3px solid #86c7ff;
     }
     .table tbody.hei{
       height: 200px;
@@ -317,28 +315,49 @@
       margin-top: -32px;
     }
   }
-
-  /*新闻列表样式*/
-  .mapInfo_view_table_line{
-    .table th {
-      border-top: 3px solid red;
-    }
-  }
-
-  /*数据展示模块样式*/
-  .mapInfo_view_table_data{
-    .table th{
-      border-top: 3px solid orange;
-    }
-  }
-
+  /*测试*/
   /*热门港口样式*/
 
   .mapInfo_view_table_hotPort{
     /*表格样式设置*/
-    .table{
+     border-top: 3px solid #81d8d0;
+  }
 
+  /*
+  修改的是最新新闻列表的样式
+  */
+  .mapInfo_view_table_news{
+    /*如果觉得颜色不好，可以后期再根据主色调修改*/
+    background: linear-gradient(to top,#ffb95e,#fa2f2f);
+
+    a{
+      color: #2c3e50;
     }
+
+    a:hover{
+      color: #fbfbfb;
+    }
+    }
+  /*修改新闻刷新界面的表格颜色*/
+  .mapInfo_view_table_news .table{
+    border: 0;
+  }
+  .mapInfo_view_table_news .table tr th {
+    border: 1px dotted #fbfbfb;
+  }
+  .mapInfo_view_table_news .table tr td{
+    border: 1px dotted #fbfbfb;
+  }
+
+
+  /*新闻列表样式*/
+  .mapInfo_view_table_line{
+    border-top: 3px solid #86c7ff;
+  }
+
+  /*数据展示模块样式*/
+  .mapInfo_view_table_data{
+    border-top: 3px solid orange;
   }
 
 </style>

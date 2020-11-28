@@ -45,6 +45,7 @@
           },
           legend: {
             x:'right',   // 图例的位置
+            top: "6%",//避免 title 和 legend 重叠
             textStyle:{
               color:'#000000',  // 图例文字的颜色
             },
@@ -82,6 +83,7 @@
     position: absolute;
     bottom: 140px;
     right: 10px;
+    /*宽度改小会影响显示效果*/
     width: 480px;
     height: 300px;
     display: block;

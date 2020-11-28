@@ -172,7 +172,7 @@
         padding: 10px;
 
         /*返回按钮圆角边框化*/
-        border-radius: 23px;
+        border-radius: 25px;
 
         font-size: 24px;
         /*修改按钮上的字体颜色*/
