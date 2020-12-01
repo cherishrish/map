@@ -39,15 +39,24 @@
             data: ["一月", "二月", "三月", "四月","五月","六月","七月","八月","九月","十月","十一月","十二月"]
           },
           yAxis: {
-            name: '出货量',
+            name: '出货量/万吨',
             type: 'value',
-
           },
           legend: {
             x:'right',   // 图例的位置
-            top: "6%",//避免 title 和 legend 重叠
+            top: "8%",//避免 title 和 legend 重叠
             textStyle:{
               color:'#000000',  // 图例文字的颜色
+            },
+          },
+          //添加数据视图和保存为图片按钮
+          toolbox:{
+            show:true,
+            feature:{
+              dataView:{show:true,readOnly:true},
+              restore:{show:false},
+              //保存为图片
+              saveAsImage:{show:true},
             },
           },
           series: [{
@@ -72,8 +81,7 @@
             data: outPort,
           }]
         },true);
-
-      }
+      },
     }
   }
 </script>
@@ -81,10 +89,11 @@
 <style scoped>
   .bar {
     position: absolute;
-    bottom: 140px;
+    /*修改距离底部的距离，避免重叠*/
+    bottom: 10px;
     right: 10px;
-    /*宽度改小会影响显示效果*/
-    width: 480px;
+    /*宽度太窄会无法显示完整的纵坐标值*/
+    width: 500px;
     height: 300px;
     display: block;
     background: rgba(255, 255, 255, 0.4);

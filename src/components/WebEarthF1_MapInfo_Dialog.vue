@@ -1,18 +1,22 @@
 <template>
   <div class="map-info-detail">
-    <div class="btn-return">
-      <button type="button" @click="onClose">
-        <i class="el-icon-arrow-left"></i>
-        返回
-      </button>
-    </div>
+<!--    <div class="btn-return">-->
+<!--      <button type="button" @click="onClose">-->
+<!--        <i class="el-icon-arrow-left"></i>-->
+<!--      </button>-->
+<!--    </div>-->
 
     <el-dialog align="left" :visible.sync="showDialog" :close-on-click-modal="false"
                width="60%" :show-close="false" :destroy-on-close="true">
       <!--      设置对话框title样式-->
-      <template slot="title">
-        <div style="color: black;font-size: 30px;font-weight: bold;text-align: center">{{model.subject}}</div>
-      </template>
+        <template slot="title">
+          <div style="color: black;font-size: 30px;font-weight: bold;text-align: center">{{model.subject}}</div>
+        </template>
+        <div class="btn-close">
+          <button type="button" @click="onClose">
+            <i class="el-icon-close"></i>
+          </button>
+        </div>
       <div class="item info">
         地点：{{model.port}} ({{model.lng}}, {{model.lon}})
       </div>
@@ -158,7 +162,7 @@
       padding: 0;
     }
 
-    div.btn-return, div.btn-more, div.btn-left, div.btn-right {
+    div.btn-close,div.btn-more, div.btn-left, div.btn-right {
       position: absolute;
       display: block;
       z-index: 9999;
@@ -170,23 +174,28 @@
         /*光标的指针样式*/
         cursor: pointer;
         padding: 10px;
-
-        /*返回按钮圆角边框化*/
-        border-radius: 25px;
-
         font-size: 24px;
         /*修改按钮上的字体颜色*/
         color: #fff;
         /*去除灰色按钮周围灰色背景*/
         border: 0;
-
+        /*几个button的样式统一，集合写在这里，简化代码*/
+        width: 40px;
+        height: 40px;
+        /*icon居中显示*/
+        line-height: 20px;
+        border-radius: 50%;
 
         i {
           font-size: 20px;
           color: #fff;
           font-weight: bolder;
         }
-
+      }
+    }
+    /*鼠标经过背景色为主色调*/
+    div.btn-more, div.btn-left, div.btn-right {
+      button{
         &:hover {
           background-color: #81d8d0;
 
@@ -196,11 +205,20 @@
         }
       }
     }
+    /*鼠标经过背景色为红色警告色*/
+    div.btn-close {
+      top: 5px;
+      right: 5px;
 
-    div.btn-return {
+      button{
+        &:hover {
+          background-color: red;
 
-      top: 20px;
-      left: 20px;
+          i {
+            background-color: red;
+          }
+        }
+      }
     }
 
     div.btn-more {
@@ -215,29 +233,11 @@
     div.btn-left {
       top: 50%;
       left: 1px;
-
-      button {
-        padding: 10px;
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        /*箭头居中显示*/
-        line-height: 20px;
-      }
     }
 
     div.btn-right {
       top: 50%;
       right: 1px;
-
-      button {
-        padding: 10px;
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        /*箭头居中显示*/
-        line-height: 20px;
-      }
     }
 
     div.item {

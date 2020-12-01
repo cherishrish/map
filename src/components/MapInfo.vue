@@ -315,9 +315,9 @@
       margin-top: -32px;
     }
   }
+
   /*测试*/
   /*热门港口样式*/
-
   .mapInfo_view_table_hotPort{
     /*表格样式设置*/
      border-top: 3px solid #81d8d0;
@@ -343,10 +343,19 @@
     border: 0;
   }
   .mapInfo_view_table_news .table tr th {
-    border: 1px dotted #fbfbfb;
+    /*消除表格竖线*/
+    border: 2px solid #DCDCDC;
+    border-bottom-width: thin;
+    border-right-style: none;
+    border-left-style: none;
+    border-top-style: none;
   }
   .mapInfo_view_table_news .table tr td{
-    border: 1px dotted #fbfbfb;
+    border: 1px solid #DCDCDC;
+    border-bottom-width: thin;
+    border-right-style: none;
+    border-left-style: none;
+    border-top-style: none;
   }
 
 
