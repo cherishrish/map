@@ -28,7 +28,7 @@
       drawLine ({port="",barType=1,inPort=[],outPort=[]}={}) {
         // 基于准备好的dom，初始化echarts实例
         let myChart = this.$echarts.init(document.getElementById('bar'))
-        // 绘制图表
+        // 绘制图表,折线图和柱状图在点击详细新闻页面后会消失
         myChart.setOption({
           title: {
             text: port+'进出港口货物'+(barType==1?"折线图":"柱状图"),
