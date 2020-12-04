@@ -10,7 +10,8 @@
                width="60%" :show-close="false" :destroy-on-close="true">
       <!--      设置对话框title样式-->
         <template slot="title">
-          <div style="color: black;font-size: 30px;font-weight: bold;text-align: center">{{model.subject}}</div>
+<!--          修改标题与顶部的距离，避免按钮与标题重叠-->
+          <div style="color: black;font-size: 30px;font-weight: bold;text-align: center;margin-top:20px;">{{model.subject}}</div>
         </template>
         <div class="btn-close">
           <button type="button" @click="onClose">
@@ -156,11 +157,6 @@
 <style scoped lang="less">
   .map-info-detail {
     overflow: hidden;
-
-    .el-dialog__body {
-      margin: 0;
-      padding: 0;
-    }
 
     div.btn-close,div.btn-more, div.btn-left, div.btn-right {
       position: absolute;

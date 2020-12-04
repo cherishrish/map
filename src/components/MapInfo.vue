@@ -232,7 +232,7 @@
     width: 460px;
     display: block;
   }
-  /*点击链接显示点击后的颜色*/
+  /*点击链接后的颜色*/
   .show{
     color:#81d8d0;
   }
