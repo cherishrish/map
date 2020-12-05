@@ -91,9 +91,9 @@
     position: absolute;
     /*修改距离底部的距离，避免重叠*/
     bottom: 10px;
-    right: 10px;
+    right: 5px;
     /*宽度太窄会无法显示完整的纵坐标值*/
-    width: 500px;
+    width: 460px;
     height: 300px;
     display: block;
     background: rgba(255, 255, 255, 0.4);
