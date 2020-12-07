@@ -37,7 +37,6 @@ export default {
       mapInfo: {
         confirm: false,
         confirmNext: false,
-
         show: false,
         showDialog: false,
         id: 0,
@@ -80,7 +79,7 @@ export default {
         var lat = Cesium.Math.toDegrees(cartographic1.latitude).toFixed(5);//纬度
 
         me.viewer.camera.flyTo({   //相机飞往该点
-          destination: new Cesium.Cartesian3.fromDegrees(parseFloat(log), parseFloat(lat), 700), //摄像机的最终位置
+          destination: new Cesium.Cartesian3.fromDegrees(parseFloat(log), parseFloat(lat), 1000), //摄像机的最终位置
         })
         me.pointShow = true;
         me.port = entity.id.name;
@@ -92,7 +91,32 @@ export default {
   methods: {
     /*Initialize the map*/
     init () {
+      Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIwZGRkOWI2My1hNDYwLTQ2NzAtYTUwMi1kZTEyNzBkOGEyMTEiLCJpZCI6MzQ0MDUsImlhdCI6MTYwMDk0NjUxMH0.PgUCHglq5xNWpwajnA-LJqYlWJ3PTJ1HWPUyRW1xfps';
+
+      //在线天地图影像服务地址(经纬度)
+      var TDT_IMG_C="http://{s}.tianditu.gov.cn/img_c/wmts?service=wmts&request=GetTile&version=1.0.0" +
+        "&LAYER=img&tileMatrixSet=c&TileMatrix={TileMatrix}&TileRow={TileRow}&TileCol={TileCol}" +
+        "&style=default&format=tiles&tk=04a1ed562408cfab1fb4d6f6d3d5b77d";
+
+      //在线天地图影像中文标记服务(经纬度)
+      var TDT_CIA_C="http://{s}.tianditu.gov.cn/cia_c/wmts?service=wmts&request=GetTile&version=1.0.0" +
+        "&LAYER=cia&tileMatrixSet=c&TileMatrix={TileMatrix}&TileRow={TileRow}&TileCol={TileCol}" +
+        "&style=default&format=tiles&tk=04a1ed562408cfab1fb4d6f6d3d5b77d";
+
       this.viewer = new Cesium.Viewer('cesiumContainer', {
+        //天地图影像服务（经纬度）
+        imageryProvider:new Cesium.WebMapTileServiceImageryProvider({
+          url: TDT_IMG_C,
+          layer: "tdtImg_c",
+          style: "default",
+          format: "tiles",
+          tileMatrixSetID: "c",
+          subdomains:["t0","t1","t2","t3","t4","t5","t6","t7"],
+          tilingScheme:new Cesium.GeographicTilingScheme(),
+          tileMatrixLabels:["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19"],
+          maximumLevel:50,
+          show: false
+        }),
         geocoder: false, // 地理位置查询定位控件
         homeButton: false, // 默认相机位置控件
         timeline: false, // 时间滚动条控件
@@ -104,6 +128,19 @@ export default {
         infoBox: false,
         selectionIndicator: false,
       })
+
+      this.viewer.imageryLayers.addImageryProvider(new Cesium.WebMapTileServiceImageryProvider({   //调用影响中文注记服务
+        url: TDT_CIA_C,
+        layer: "tdtImg_c",
+        style: "default",
+        format: "tiles",
+        tileMatrixSetID: "c",
+        subdomains: ["t0", "t1", "t2", "t3", "t4", "t5", "t6", "t7"],
+        tilingScheme: new Cesium.GeographicTilingScheme(),
+        tileMatrixLabels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19"],
+        maximumLevel: 50,
+        show: false
+      }));
 
       this.viewer.camera.setView({
         destination: new Cesium.Cartesian3.fromDegrees(114.28088, 30.55711, 6071.32), // eslint-disable-next-line
@@ -124,8 +161,6 @@ export default {
       }).catch(error=>{
         console.log('error')
       })
-
-
     },
     onOperationMapInfoSubjectClose() {
       this.mapInfo.showDialog = false;
@@ -156,7 +191,7 @@ export default {
       });
       this.entities=board;
       this.viewer.camera.flyTo({   //相机飞往该点
-        destination: new Cesium.Cartesian3.fromDegrees(item.lng, item.lon, 600), //摄像机的最终位置
+        destination: new Cesium.Cartesian3.fromDegrees(item.lng, item.lon, 1000), //摄像机的最终位置
       })
       this.pointShow = true;
       this.port = item.port;
@@ -208,7 +243,7 @@ export default {
           this.heatMap.show(display);
 
           this.viewer.camera.flyTo({
-            destination:Cesium.Cartesian3.fromDegrees(parseFloat(item.lng),parseFloat(item.lon),200),
+            destination:Cesium.Cartesian3.fromDegrees(parseFloat(item.lng),parseFloat(item.lon),500),
             orientation: {
               heading: Cesium.Math.toRadians(0.0),
               pitch: Cesium.Math.toRadians(-90.0),
