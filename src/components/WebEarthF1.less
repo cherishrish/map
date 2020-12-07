@@ -201,23 +201,34 @@
     }
   }
 
+  //列表分割线设置
   .table {
-    border: 1px solid #dbdee2;
+    border: none;
     border-collapse: collapse;
     width: 100%;
 
     tr th {
-      border: 1px solid #dbdee2;
+      border: 1px solid #515a6e;
+      border-bottom-width: thin;
+      border-right-style: none;
+      border-left-style: none;
+      border-top-style: none;
       padding: 8px;
       text-align: center;
     }
 
     tr td {
-      border: 1px solid #dbdee2;
+      //border: 1px solid #515a6e;
+      border: 1px solid #515a6e;
+      border-bottom-width: thin;
+      border-right-style: none;
+      border-left-style: none;
+      border-top-style: none;
       padding: 5px;
       text-align: center;
 
       a {
+        //最高优先级
         padding: 0 !important;
         text-decoration: none;
       }
@@ -654,12 +665,21 @@
 .el-button+.el-button{
   margin-left: 200px;
 }
+/*
+新闻详细界面element组件样式修改
+ */
+/*修改标题与小标题的距离*/
+.el-dialog__body {
+  margin: 0;
+  padding: 20px 20px;
+}
 
 /*按钮设置为居中格式*/
 .el-dialog__footer{
   text-align: center;
 }
 
+//新闻样式
 /*changed the color of news-link*/
 .news-content{
   font-family: 'Microsoft YaHei UI';

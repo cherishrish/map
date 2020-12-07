@@ -97,7 +97,9 @@
     /*去掉外边框*/
     /*border: 2px solid #f7f7f7;*/
     border-radius: 4px;
+    /*边框背景颜色*/
     background-color: rgba(255, 255, 255, 0.9);
+    /*边框阴影*/
     box-shadow: 1px 2px 4px #11035440;
 
     table th {

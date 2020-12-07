@@ -1,7 +1,7 @@
 <template>
     <div>
       <div class="mapInfo_view_point" v-show="portShow">
-        <div class="mapInfo_view_table">
+        <div class="mapInfo_view_table mapInfo_view_table_line">
           <table class="table" width="100%">
             <tr>
               <th width="300">{{port}}新闻列表</th>
@@ -16,7 +16,7 @@
             </tr>
           </table>
         </div>
-        <div class="mapInfo_view_table">
+        <div class="mapInfo_view_table mapInfo_view_table_data">
           <table class="table" width="100%">
             <tr>
               <th width="300">{{port}}数据展示</th>
@@ -40,7 +40,7 @@
         </div>
       </div>
       <div class="mapInfo_view">
-        <div class="mapInfo_view_table">
+        <div class="mapInfo_view_table mapInfo_view_table_hotPort">
           <table class="table" width="100%">
             <tr>
               <th width="60%">热门港口</th>
@@ -56,7 +56,7 @@
             </tr>
           </table>
         </div>
-        <div class="mapInfo_view_table">
+        <div class="mapInfo_view_table mapInfo_view_table_news">
           <table class="table">
             <thead>
               <tr>
@@ -217,6 +217,7 @@
 
   .mapInfo_view {
     position: absolute;
+    /*距离底部*/
     bottom: 10px;
     left: 10px;
     width: 460px;
@@ -231,26 +232,26 @@
     width: 460px;
     display: block;
   }
-
+  /*点击链接后的颜色*/
   .show{
-    color:red;
+    color:#81d8d0;
   }
 
   .mapInfo_view_table {
     display: block;
     width: 100%;
-    padding: 4px;
+    /*去掉内边距*/
+    padding: 3px;
     margin-bottom: 10px;
     /*删除列表白色边框*/
     /*border: 2px solid #f7f7f7;*/
     border-radius: 4px;
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: rgba(245, 245, 245, 0.8);
     box-shadow: 1px 2px 4px #11035440;
 
     .table th {
       font-weight: bold;
     }
-
     .table td[align='left'] a {
       width: 300px;
       overflow: hidden;
@@ -261,7 +262,7 @@
 
     .table{
        width: 100%;
-        border: 1px solid #86c7ff;
+       /*border: 1px solid #86c7ff;*/
        position: relative;
     }
 
@@ -277,7 +278,8 @@
       box-sizing: border-box;
     }
     .table thead th {
-      font-weight: 300;
+      /*加粗新闻刷新列表的表头文字*/
+      font-weight: bold;
       table-layout: fixed;
       box-sizing: border-box;
     }
@@ -313,4 +315,58 @@
       margin-top: -32px;
     }
   }
+
+  /*测试*/
+  /*热门港口样式*/
+  .mapInfo_view_table_hotPort{
+    /*表格样式设置*/
+     border-top: 3px solid #81d8d0;
+  }
+
+  /*
+  修改的是最新新闻列表的样式
+  */
+  .mapInfo_view_table_news{
+    /*如果觉得颜色不好，可以后期再根据主色调修改*/
+    background: linear-gradient(to top,#ffb95e,#fa2f2f);
+
+    a{
+      color: #2c3e50;
+    }
+
+    a:hover{
+      color: #fbfbfb;
+    }
+    }
+  /*修改新闻刷新界面的表格颜色*/
+  .mapInfo_view_table_news .table{
+    border: 0;
+  }
+  .mapInfo_view_table_news .table tr th {
+    /*消除表格竖线*/
+    border: 2px solid #DCDCDC;
+    border-bottom-width: thin;
+    border-right-style: none;
+    border-left-style: none;
+    border-top-style: none;
+  }
+  .mapInfo_view_table_news .table tr td{
+    border: 1px solid #DCDCDC;
+    border-bottom-width: thin;
+    border-right-style: none;
+    border-left-style: none;
+    border-top-style: none;
+  }
+
+
+  /*新闻列表样式*/
+  .mapInfo_view_table_line{
+    border-top: 3px solid #86c7ff;
+  }
+
+  /*数据展示模块样式*/
+  .mapInfo_view_table_data{
+    border-top: 3px solid orange;
+  }
+
 </style>
