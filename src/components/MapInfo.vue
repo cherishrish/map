@@ -1,113 +1,114 @@
 <template>
-    <div>
-      <div class="mapInfo_view_point" v-show="portShow">
-        <div class="mapInfo_view_table mapInfo_view_table_line">
-          <table class="table" width="100%">
-            <tr>
-              <th width="300">{{port}}新闻列表</th>
-              <th>时间</th>
-            </tr>
-            <tr v-for="(item, index) in newsList" :key="index" >
-              <td v-if="item.port==port" align="left" width="300">
-                <a href="javascript:;" @click="onSubjectClick(item, item.port)"
-                   :title="item.subject">{{item.subject}}</a>
-              </td>
-              <td v-if="item.port==port">{{formatRDate(item.subject_time)}}</td>
-            </tr>
-          </table>
-        </div>
-        <div class="mapInfo_view_table mapInfo_view_table_data">
-          <table class="table" width="100%">
-            <tr>
-              <th width="300">{{port}}数据展示</th>
-              <th>操作</th>
-            </tr>
-            <tr>
-              <td>热力图</td>
-              <td>
-                <a v-if="heatDisplay" href="javascript:;" @click="onHeatClick(heatDisplay)">显示</a>
-                <a v-if="!heatDisplay" href="javascript:;" @click="onHeatClick(heatDisplay)">隐藏</a>
-              </td>
-            </tr>
-            <tr>
-              <td>进出港口货物统计图</td>
-              <td>
-                <a v-if="barDisplay" href="javascript:;" @click="onChartClick(barDisplay)">折线图</a>
-                <a v-if="!barDisplay" href="javascript:;" @click="onChartClick(barDisplay)">柱状图</a>
-              </td>
-            </tr>
-          </table>
-        </div>
+  <div>
+    <div class="mapInfo_view_point" v-show="portShow">
+      <div class="mapInfo_view_table mapInfo_view_table_line">
+        <table class="table" width="100%">
+          <tr>
+            <th width="300">{{port}}新闻列表</th>
+            <th>时间</th>
+          </tr>
+          <tr v-for="(item, index) in newsList" :key="index">
+            <td v-if="item.port==port" align="left" width="300">
+              <a href="javascript:;" @click="onSubjectClick(item, item.port)"
+                 :title="item.subject">{{item.subject}}</a>
+            </td>
+            <td v-if="item.port==port">{{formatRDate(item.subject_time)}}</td>
+          </tr>
+        </table>
       </div>
-      <div class="mapInfo_view">
-        <div class="mapInfo_view_table mapInfo_view_table_hotPort">
-          <table class="table" width="100%">
-            <tr>
-              <th width="60%">热门港口</th>
-              <th width="40%">新闻数</th>
-            </tr>
-            <tr v-for="(item, index) in portList" :key="index">
-              <td>
-                <a :class="{show:item.isShow}" href="javascript:;" @click="onPlaceClick(item)">{{item.port}}</a>
-              </td>
-              <td>
-                <a href="javascript:;" @click="onPlaceClick(item)">{{item.c}}</a>
-              </td>
-            </tr>
-          </table>
-        </div>
-        <div class="mapInfo_view_table mapInfo_view_table_news">
-          <table class="table">
-            <thead>
-              <tr>
-                <th width="60%">最新新闻</th>
-                <th width="20%">港口</th>
-                <th >时间</th>
-              </tr>
-            </thead>
-            <tbody :class="{anim:animate==true, hei: isLenght===true}">
-              <tr v-for="(item, index) in newsList" :key="index">
-                <td width="60%" >
-                  <a href="javascript:;" @click="onSubjectClick(item, item.port)" :title="item.subject">{{item.subject}}</a>
-                </td>
-                <td width="20%">
-                  <a :class="{show:item.isShow}" href="javascript:;" @click="onPlaceClick(item)">{{item.port}}</a>
-                </td >
-                <td >{{formatRDate(item.subject_time)}}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+      <div class="mapInfo_view_table mapInfo_view_table_data">
+        <table class="table" width="100%">
+          <tr>
+            <th width="300">{{port}}数据展示</th>
+            <th>操作</th>
+          </tr>
+          <tr>
+            <td>热力图</td>
+            <td>
+              <a v-if="heatDisplay" href="javascript:;" @click="onHeatClick(heatDisplay)">显示</a>
+              <a v-if="!heatDisplay" href="javascript:;" @click="onHeatClick(heatDisplay)">隐藏</a>
+            </td>
+          </tr>
+          <tr>
+            <td>进出港口货物统计图</td>
+            <td>
+              <a v-if="barDisplay" href="javascript:;" @click="onChartClick(barDisplay)">折线图</a>
+              <a v-if="!barDisplay" href="javascript:;" @click="onChartClick(barDisplay)">柱状图</a>
+            </td>
+          </tr>
+        </table>
       </div>
     </div>
+    <div class="mapInfo_view">
+      <div class="mapInfo_view_table mapInfo_view_table_hotPort">
+        <table class="table" width="100%">
+          <tr>
+            <th width="60%">热门港口</th>
+            <th width="40%">新闻数</th>
+          </tr>
+          <tr v-for="(item, index) in portList" :key="index">
+            <td>
+              <a :class="{show:item.isShow}" href="javascript:;" @click="onPlaceClick(item)">{{item.port}}</a>
+            </td>
+            <td>
+              <a href="javascript:;" @click="onPlaceClick(item)">{{item.c}}</a>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="mapInfo_view_table mapInfo_view_table_news">
+        <table class="table">
+          <thead>
+          <tr>
+            <th width="60%">最新新闻</th>
+            <th width="20%">港口</th>
+            <th>时间</th>
+          </tr>
+          </thead>
+          <tbody :class="{anim:animate==true, hei: isLenght===true}">
+          <tr v-for="(item, index) in newsList" :key="index">
+            <td width="60%">
+              <a href="javascript:;" @click="onSubjectClick(item, item.port)" :title="item.subject">{{item.subject}}</a>
+            </td>
+            <td width="20%">
+              <a :class="{show:item.isShow}" href="javascript:;" @click="onPlaceClick(item)">{{item.port}}</a>
+            </td>
+            <td>{{formatRDate(item.subject_time)}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
   import * as Cesium from '../../static/Cesium/Cesium'
+
   export default {
     name: 'MapInfo',
-    props:['port','portList','viewer'],
-    data(){
-      return{
-        pointList:[],
+    props: ['port', 'portList', 'viewer'],
+    data () {
+      return {
+        pointList: [],
         newsList: [],
         heatDisplay: true,
         barDisplay: true,
-        animate:false,
-        timer:'',
-        endId:'',
-        isLenght:false,
-        portShow:false,
-        num:0,
-        item:''
+        animate: false,
+        timer: '',
+        endId: '',
+        isLenght: false,
+        portShow: false,
+        num: 0,
+        item: ''
       }
     },
-    created(){
+    created () {
       this.getList()
     },
-    mounted(){
+    mounted () {
     },
-    methods:{
+    methods: {
       scroll () {
         this.animate = true
         setTimeout(() => {
@@ -122,84 +123,84 @@
         }, 500)
       },
 
-      getList(){
-        this.$axios.get('http://localhost:8080/static/db.json').then(res=>{
-          this.newsList=res.data;
-          this.endId = this.newsList[this.newsList.length-1].id
+      getList () {
+        this.$axios.get('http://localhost:8080/static/db.json').then(res => {
+          this.newsList = res.data
+          this.endId = this.newsList[this.newsList.length - 1].id
           if (this.newsList.length > 4) {
             this.isLenght = true
             this.timer = setInterval(this.scroll, 10000)
           } else {
             this.isLenght = false
             clearInterval(this.timer)
-           }
-        }).catch(error=>{
+          }
+        }).catch(error => {
           console.log('error')
         })
       },
 
-      formatRDate(date) {
-        let d = new Date(date);
-        let now = new Date().getTime();
-        let tick = d.getTime();
+      formatRDate (date) {
+        let d = new Date(date)
+        let now = new Date().getTime()
+        let tick = d.getTime()
 
-        let minute = 1000 * 60;
-        let hour = minute * 60;
-        let day = hour * 24;
-        let week = day * 7;
-        let month = day * 30;
-        let diff = now - tick;
+        let minute = 1000 * 60
+        let hour = minute * 60
+        let day = hour * 24
+        let week = day * 7
+        let month = day * 30
+        let diff = now - tick
 
-        let result = null;
+        let result = null
         if (diff < 0) {
-          result = this.formatDate(date);
+          result = this.formatDate(date)
         } else if (diff / month >= 1) {
-          result = Math.ceil(diff / month) + "月前";
+          result = Math.ceil(diff / month) + '月前'
         } else if (diff / week >= 1) {
-          result = Math.ceil(diff / week) + "周前";
+          result = Math.ceil(diff / week) + '周前'
         } else if (diff / day >= 1) {
-          result = Math.ceil(diff / day) + "天前";
+          result = Math.ceil(diff / day) + '天前'
         } else if (diff / hour >= 1) {
-          result = Math.ceil(diff / hour) + "小时前";
+          result = Math.ceil(diff / hour) + '小时前'
         } else if (diff / minute >= 1) {
-          result = Math.ceil(diff / minute) + "分钟前";
+          result = Math.ceil(diff / minute) + '分钟前'
         } else {
-          result = "刚刚";
+          result = '刚刚'
         }
 
-        return result;
+        return result
       },
 
-      onPlaceClick(item) {
-        this.$emit('place-click',item);
-        if(this.item!=''){
-          this.item.isShow = false;
+      onPlaceClick (item) {
+        this.$emit('place-click', item)
+        if (this.item != '') {
+          this.item.isShow = false
         }
         console.log(this.item)
-        item.isShow = true;
-        this.item = item;
-        this.portShow = true;
-        this.heatDisplay = true;
-        this.barDisplay = true;
+        item.isShow = true
+        this.item = item
+        this.portShow = true
+        this.heatDisplay = true
+        this.barDisplay = true
       },
 
-      onSubjectClick(item, port) {
-        this.onPlaceClick(item);
-        this.$emit('subject-click', item, port);
+      onSubjectClick (item, port) {
+        this.onPlaceClick(item)
+        this.$emit('subject-click', item, port)
       },
 
-      onHeatClick(display){
-        this.heatDisplay = !display;
-        this.$emit('heat-click', this.port,display);
+      onHeatClick (display) {
+        this.heatDisplay = !display
+        this.$emit('heat-click', this.port, display)
       },
 
-      onChartClick(display){
-        this.barDisplay = !display;
-        var index = 2;
-        if(display){
+      onChartClick (display) {
+        this.barDisplay = !display
+        var index = 2
+        if (display) {
           index = 1
         }
-        this.$emit('bar-click', this.port,index);
+        this.$emit('bar-click', this.port, index)
       },
     }
   }
@@ -207,11 +208,11 @@
 
 <style scoped lang="less">
   /*修改新闻列表中的链接颜色*/
-  a{
+  a {
     color: #515a6e;
   }
 
-  a:hover{
+  a:hover {
     color: #81d8d0;
   }
 
@@ -232,9 +233,10 @@
     width: 460px;
     display: block;
   }
+
   /*点击链接后的颜色*/
-  .show{
-    color:#81d8d0;
+  .show {
+    color: #81d8d0;
   }
 
   .mapInfo_view_table {
@@ -252,6 +254,7 @@
     .table th {
       font-weight: bold;
     }
+
     .table td[align='left'] a {
       width: 300px;
       overflow: hidden;
@@ -260,10 +263,10 @@
       display: block;
     }
 
-    .table{
-       width: 100%;
-       /*border: 1px solid #86c7ff;*/
-       position: relative;
+    .table {
+      width: 100%;
+      /*border: 1px solid #86c7ff;*/
+      position: relative;
     }
 
     .table thead {
@@ -277,15 +280,18 @@
       border-bottom: none;
       box-sizing: border-box;
     }
+
     .table thead th {
       /*加粗新闻刷新列表的表头文字*/
       font-weight: bold;
       table-layout: fixed;
       box-sizing: border-box;
     }
-    .table tbody.hei{
+
+    .table tbody.hei {
       height: 200px;
     }
+
     .table tbody {
       display: block;
       text-align: left;
@@ -307,10 +313,12 @@
       -ms-overflow-style: none;
       table-layout: fixed;
     }
+
     .table tbody::-webkit-scrollbar {
       display: none;
     }
-    .anim{
+
+    .anim {
       transition: all 0.5s;
       margin-top: -32px;
     }
@@ -318,30 +326,32 @@
 
   /*测试*/
   /*热门港口样式*/
-  .mapInfo_view_table_hotPort{
+  .mapInfo_view_table_hotPort {
     /*表格样式设置*/
-     border-top: 3px solid #81d8d0;
+    border-top: 3px solid #81d8d0;
   }
 
   /*
   修改的是最新新闻列表的样式
   */
-  .mapInfo_view_table_news{
+  .mapInfo_view_table_news {
     /*如果觉得颜色不好，可以后期再根据主色调修改*/
-    background: linear-gradient(to top,#ffb95e,#fa2f2f);
+    background: linear-gradient(to top, #ffb95e, #fa2f2f);
 
-    a{
+    a {
       color: #2c3e50;
     }
 
-    a:hover{
+    a:hover {
       color: #fbfbfb;
     }
-    }
+  }
+
   /*修改新闻刷新界面的表格颜色*/
-  .mapInfo_view_table_news .table{
+  .mapInfo_view_table_news .table {
     border: 0;
   }
+
   .mapInfo_view_table_news .table tr th {
     /*消除表格竖线*/
     border: 2px solid #DCDCDC;
@@ -350,7 +360,8 @@
     border-left-style: none;
     border-top-style: none;
   }
-  .mapInfo_view_table_news .table tr td{
+
+  .mapInfo_view_table_news .table tr td {
     border: 1px solid #DCDCDC;
     border-bottom-width: thin;
     border-right-style: none;
@@ -360,12 +371,12 @@
 
 
   /*新闻列表样式*/
-  .mapInfo_view_table_line{
+  .mapInfo_view_table_line {
     border-top: 3px solid #86c7ff;
   }
 
   /*数据展示模块样式*/
-  .mapInfo_view_table_data{
+  .mapInfo_view_table_data {
     border-top: 3px solid orange;
   }
 

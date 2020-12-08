@@ -1,62 +1,63 @@
 <template>
-    <div>
-      <div class="mapInfo_view">
-        <div class="mapInfo_view_table">
-          <table class="table" width="100%">
-            <tr>
-              <th width="30%">港口</th>
-              <th width="20%">热力图</th>
-              <th width="50%">进出港口货物统计图</th>
-            </tr>
-            <tr v-for="(item, index) in statList" :key="index">
-              <td>{{item.port}}</td>
-              <td>
-                <a href="javascript:;" @click="onShowClick(item)">前往</a>
-              </td>
-              <td>
-                <a href="javascript:;" @click="onChartClick(item,1)">折线图</a>
-                <a href="javascript:;" @click="onChartClick(item,2)">柱状图</a>
-              </td>
-            </tr>
-          </table>
-        </div>
+  <div>
+    <div class="mapInfo_view">
+      <div class="mapInfo_view_table">
+        <table class="table" width="100%">
+          <tr>
+            <th width="30%">港口</th>
+            <th width="20%">热力图</th>
+            <th width="50%">进出港口货物统计图</th>
+          </tr>
+          <tr v-for="(item, index) in statList" :key="index">
+            <td>{{item.port}}</td>
+            <td>
+              <a href="javascript:;" @click="onShowClick(item)">前往</a>
+            </td>
+            <td>
+              <a href="javascript:;" @click="onChartClick(item,1)">折线图</a>
+              <a href="javascript:;" @click="onChartClick(item,2)">柱状图</a>
+            </td>
+          </tr>
+        </table>
       </div>
     </div>
+  </div>
 </template>
 
 <script>
   import * as Cesium from '../../static/Cesium/Cesium'
+
   export default {
     name: 'MapInfo',
-    props:['port'],
-    data(){
-      return{
+    props: ['port'],
+    data () {
+      return {
         // pointShow: false,
-        statList:[],
-        activeIndex:-1,
-        show:false,
+        statList: [],
+        activeIndex: -1,
+        show: false,
         displayDataLayerItem: undefined
       }
     },
-    mounted(){
-      this.$axios.get('http://localhost:8080/static/state.json').then(res=>{
-        this.statList = res.data;
+    mounted () {
+      this.$axios.get('http://localhost:8080/static/state.json').then(res => {
+        this.statList = res.data
         // for(var i=0;i<this.statList.length;i++){
         //   var value = false;
         //   this.statList[i]["show"]=value;
         // }
-        console.log(this.statList);
-      }).catch(error=>{
+        console.log(this.statList)
+      }).catch(error => {
         console.log('error')
       })
     },
-    methods:{
-      onShowClick(item) {
-        this.$emit('heat-click', item);
+    methods: {
+      onShowClick (item) {
+        this.$emit('heat-click', item)
       },
-      onChartClick(item,index){
+      onChartClick (item, index) {
         console.log(item)
-        this.$emit('bar-click', item,index);
+        this.$emit('bar-click', item, index)
       }
     }
   }
@@ -64,11 +65,11 @@
 
 <style scoped lang="less">
   /*修改a标签的颜色*/
-  a{
+  a {
     color: #515a6e;
   }
 
-  a:hover{
+  a:hover {
     color: #81d8d0;
   }
 
