@@ -10,7 +10,17 @@ module.exports = {
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '',
-    proxyTable: {},
+    proxyTable: {
+      '/world4': {//代理的目的：只要是/satellite开头的路径都往localhost:3000进行转发
+        target: 'http://10.141.61.209:10090', //后端接口地址 设置代理服务器地址 转发地址
+        ws:true,//WebSocket协议
+        changeOrigin: true, //表示是否改变原域名；这个一定要选择为true; 是否允许跨域[ 如果接口跨域 则要配置这个参数]
+        // secure: false, // 如果是https接口 需要配置这个参数
+        pathRewrite: {// 把程序中的地址转换成“真实地址”+‘/satellite’后面的部分如‘/satellite/satellite/z={z}&x={x}&y={y}'，被转换成'http://localhost:3000/satellite/z={z}&x={x}&y={y}'
+          '^/world4': ''//修改pathRewrite地址 将前缀'^satellite'转为'/satellite'
+        }
+      }
+    },
 
     // Various Dev Server settings
     host: 'localhost', // can be overwritten by process.env.HOST
@@ -74,3 +84,4 @@ module.exports = {
     bundleAnalyzerReport: process.env.npm_config_report
   }
 }
+

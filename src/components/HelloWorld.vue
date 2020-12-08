@@ -93,30 +93,7 @@
       init () {
         Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIwZGRkOWI2My1hNDYwLTQ2NzAtYTUwMi1kZTEyNzBkOGEyMTEiLCJpZCI6MzQ0MDUsImlhdCI6MTYwMDk0NjUxMH0.PgUCHglq5xNWpwajnA-LJqYlWJ3PTJ1HWPUyRW1xfps'
 
-        //在线天地图影像服务地址(经纬度)
-        var TDT_IMG_C = 'http://{s}.tianditu.gov.cn/img_c/wmts?service=wmts&request=GetTile&version=1.0.0' +
-          '&LAYER=img&tileMatrixSet=c&TileMatrix={TileMatrix}&TileRow={TileRow}&TileCol={TileCol}' +
-          '&style=default&format=tiles&tk=04a1ed562408cfab1fb4d6f6d3d5b77d'
-
-        //在线天地图影像中文标记服务(经纬度)
-        var TDT_CIA_C = 'http://{s}.tianditu.gov.cn/cia_c/wmts?service=wmts&request=GetTile&version=1.0.0' +
-          '&LAYER=cia&tileMatrixSet=c&TileMatrix={TileMatrix}&TileRow={TileRow}&TileCol={TileCol}' +
-          '&style=default&format=tiles&tk=04a1ed562408cfab1fb4d6f6d3d5b77d'
-
         this.viewer = new Cesium.Viewer('cesiumContainer', {
-          //天地图影像服务（经纬度）
-          imageryProvider: new Cesium.WebMapTileServiceImageryProvider({
-            url: TDT_IMG_C,
-            layer: 'tdtImg_c',
-            style: 'default',
-            format: 'tiles',
-            tileMatrixSetID: 'c',
-            subdomains: ['t0', 't1', 't2', 't3', 't4', 't5', 't6', 't7'],
-            tilingScheme: new Cesium.GeographicTilingScheme(),
-            tileMatrixLabels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19'],
-            maximumLevel: 50,
-            show: false
-          }),
           geocoder: false, // 地理位置查询定位控件
           homeButton: false, // 默认相机位置控件
           timeline: false, // 时间滚动条控件
@@ -129,18 +106,12 @@
           selectionIndicator: false,
         })
 
-        this.viewer.imageryLayers.addImageryProvider(new Cesium.WebMapTileServiceImageryProvider({   //调用影响中文注记服务
-          url: TDT_CIA_C,
-          layer: 'tdtImg_c',
-          style: 'default',
-          format: 'tiles',
-          tileMatrixSetID: 'c',
-          subdomains: ['t0', 't1', 't2', 't3', 't4', 't5', 't6', 't7'],
-          tilingScheme: new Cesium.GeographicTilingScheme(),
-          tileMatrixLabels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19'],
-          maximumLevel: 50,
-          show: false
-        }))
+        this.viewer.scene.imageryLayers.addImageryProvider(
+          new Cesium.UrlTemplateImageryProvider({
+            url:'world4/world4/{z}/{x}/{y}.jpg',
+            fileExtension:'jpg'
+          })
+        );
 
         this.viewer.camera.setView({
           destination: new Cesium.Cartesian3.fromDegrees(114.28088, 30.55711, 6071.32), // eslint-disable-next-line
