@@ -40,7 +40,11 @@
         </div>
       </div>
       <div class="mapInfo_view">
-        <div class="mapInfo_view_table mapInfo_view_table_hotPort">
+        <div class="mapInfo_view_table horn">
+          <div class="lt"></div>
+          <div class="rt"></div>
+          <div class="lb"></div>
+          <div class="rb"></div>
           <table class="table" width="100%">
             <tr>
               <th width="60%">热门港口</th>
@@ -245,7 +249,7 @@
     margin-bottom: 10px;
     /*删除列表白色边框*/
     /*border: 2px solid #f7f7f7;*/
-    border-radius: 4px;
+    /*border-radius: 4px;*/
     background-color: rgba(245, 245, 245, 0.8);
     box-shadow: 1px 2px 4px #11035440;
 
@@ -320,7 +324,7 @@
   /*热门港口样式*/
   .mapInfo_view_table_hotPort{
     /*表格样式设置*/
-     border-top: 3px solid #81d8d0;
+    /* border-top: 3px solid #81d8d0;*/
   }
 
   /*
@@ -329,6 +333,7 @@
   .mapInfo_view_table_news{
     /*如果觉得颜色不好，可以后期再根据主色调修改*/
     background: linear-gradient(to top,#ffb95e,#fa2f2f);
+    border-radius: 4px;
 
     a{
       color: #2c3e50;
@@ -362,11 +367,52 @@
   /*新闻列表样式*/
   .mapInfo_view_table_line{
     border-top: 3px solid #86c7ff;
+    border-radius: 4px;
   }
 
   /*数据展示模块样式*/
   .mapInfo_view_table_data{
     border-top: 3px solid orange;
+    border-radius: 4px;
   }
 
+  .horn{
+    position: absolute;
+    border: 1px solid #00d3e7;
+    bottom: 280px;
+  }
+
+  .horn>div{
+    width: 10px;
+    height: 10px;
+    position: absolute;
+  }
+
+  .horn .lt{
+    border-top: 2px solid #00d3e7;
+    border-left: 2px solid #00d3e7;
+    left: -3px;
+    top: -3px;
+  }
+
+  .horn .rt{
+    border-top: 2px solid #00d3e7;
+    border-right: 2px solid #00d3e7;
+    right: -3px;
+    top: -3px;
+  }
+
+  .horn .lb{
+    border-bottom: 2px solid #00d3e7;
+    border-left: 2px solid #00d3e7;
+    left: -3px;
+    bottom: -3px;
+  }
+
+  .horn .rb{
+    border-bottom: 2px solid #00d3e7;
+    border-right: 2px solid #00d3e7;
+    right: -3px;
+    bottom: -3px;
+  }
 </style>
